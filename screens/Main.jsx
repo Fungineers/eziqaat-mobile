@@ -7,6 +7,7 @@ import { StyleSheet, View } from "react-native";
 import { Avatar, Caption, Paragraph, Title } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import ProfileAndSettings from "./ProfileAndSettings";
+import Donations from "./Donations";
 
 const MainDrawer = createDrawerNavigator();
 
@@ -104,7 +105,7 @@ const Main = () => {
             <MaterialCommunityIcons {...props} name="cash" />
           ),
         }}
-        component={() => <></>}
+        component={Donations}
       />
       <MainDrawer.Screen
         name="visualization-and-insights"

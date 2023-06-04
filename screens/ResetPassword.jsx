@@ -11,7 +11,7 @@ const ResetPassword = ({ navigation }) => {
     setTimeout(() => {
       setLoading(false);
       navigation.navigate("login");
-    }, 2000);
+    }, 1000);
   };
 
   return (

@@ -13,7 +13,7 @@ const Login = ({ navigation }) => {
     setTimeout(() => {
       setLoading(false);
       navigation.navigate("main");
-    }, 2000);
+    }, 1000);
   };
 
   return (

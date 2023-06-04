@@ -71,7 +71,7 @@ const EditPhone = ({ hideDialog }) => {
     setTimeout(() => {
       setLoading(false);
       hideDialog();
-    }, 2000);
+    }, 1000);
   };
 
   return (
@@ -117,7 +117,7 @@ const EditEmail = ({ hideDialog }) => {
     setTimeout(() => {
       setLoading(false);
       hideDialog();
-    }, 2000);
+    }, 1000);
   };
 
   return (
@@ -166,7 +166,7 @@ const EditPassword = ({ hideDialog }) => {
     setTimeout(() => {
       setLoading(false);
       hideDialog();
-    }, 2000);
+    }, 1000);
   };
 
   return (
