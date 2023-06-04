@@ -1,20 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { MD3LightTheme } from "react-native-paper";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import * as React from "react";
+import { Provider as PaperProvider } from "react-native-paper";
+import Login from "./screens/Login";
+import ResetPassword from "./screens/ResetPassword";
+import Signup from "./screens/Signup";
+
+const theme = {
+  ...MD3LightTheme,
+  roundness: 2,
+};
+
+const RootStack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <PaperProvider theme={theme}>
+        <NavigationContainer theme={theme}>
+          <RootStack.Navigator screenOptions={{ headerShown: false }}>
+            <RootStack.Screen name="login" component={Login} />
+            <RootStack.Screen name="signup" component={Signup} />
+            <RootStack.Screen name="reset-password" component={ResetPassword} />
+          </RootStack.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
