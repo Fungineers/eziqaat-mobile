@@ -73,9 +73,6 @@ const Signup = ({ navigation }) => {
           left={<TextInput.Icon icon="phone" />}
           value={phone}
           onChangeText={setPhone}
-          // render={(props) => (
-          //   <TextInputMask {...props} mask="+[00] [000] [000] [000]" />
-          // )}
         />
         <TextInput
           label="CNIC"
