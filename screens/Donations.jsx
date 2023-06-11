@@ -13,7 +13,7 @@ const Donations = ({ navigation }) => {
         tabBarLabelStyle: {
           fontSize: 11,
         },
-        tabBarAndroidRipple: { color: "#0000" },
+        tabBarAndroidRipple: { borderless: true },
       }}
     >
       <Tab.Screen
