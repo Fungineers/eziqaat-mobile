@@ -20,3 +20,14 @@ export const signin = async ({ credential, password }) => {
 export const me = async () => {
   return await apiInstance.get("/auth/me");
 };
+
+export const signup = async ({ firstName, lastName, email, phone, cnic }) => {
+  return await apiInstance.post("/user", {
+    firstName,
+    lastName,
+    email,
+    role: "DONOR",
+    phone,
+    cnic,
+  });
+};

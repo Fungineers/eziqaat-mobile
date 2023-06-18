@@ -1,9 +1,14 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { MD3LightTheme, Provider as PaperProvider } from "react-native-paper";
+import {
+  MD3LightTheme,
+  Provider as PaperProvider,
+  Snackbar,
+} from "react-native-paper";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { AuthProvider } from "./context/auth.context";
+import { SnackbarProvider, useSnackbar } from "./context/snackbar.context";
 import Login from "./screens/Login";
 import Main from "./screens/Main";
 import ResetPassword from "./screens/ResetPassword";
@@ -16,9 +21,21 @@ const theme = {
 
 const RootStack = createNativeStackNavigator();
 
-export default function App() {
+const AppWrapper = ({ children }) => {
   return (
-    <AuthProvider>
+    <SnackbarProvider>
+      <AuthProvider>{children}</AuthProvider>
+    </SnackbarProvider>
+  );
+};
+
+const App = () => {
+  const { snackbar } = useSnackbar();
+
+  console.log(snackbar);
+
+  return (
+    <AppWrapper>
       <SafeAreaProvider>
         <PaperProvider theme={theme}>
           <NavigationContainer theme={theme}>
@@ -32,8 +49,13 @@ export default function App() {
               <RootStack.Screen name="main" component={Main} />
             </RootStack.Navigator>
           </NavigationContainer>
+          {snackbar && (
+            <Snackbar {...snackbar.props}>{snackbar.message}</Snackbar>
+          )}
         </PaperProvider>
       </SafeAreaProvider>
-    </AuthProvider>
+    </AppWrapper>
   );
-}
+};
+
+export default App;

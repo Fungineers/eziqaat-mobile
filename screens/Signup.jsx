@@ -1,31 +1,20 @@
-import { useState } from "react";
 import { View } from "react-native";
 import { Appbar, Button, Text, TextInput } from "react-native-paper";
+import useSignup from "../hooks/useSignup";
+import { useSnackbar } from "../context/snackbar.context";
 
 const Signup = ({ navigation }) => {
-  const [loading, setLoading] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [cnic, setCnic] = useState("");
+  const signup = useSignup();
+  const snackbar = useSnackbar();
 
-  const handleSubmit = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      navigation.navigate("login");
-    }, 1000);
-  };
+  if (signup.success) {
+    navigation.navigate("login");
+  }
 
   return (
     <View style={{ flex: 1, gap: 10, justifyContent: "center" }}>
       <Appbar.Header mode="center-aligned">
-        <Appbar.BackAction
-          onPress={() => {
-            navigation.goBack();
-          }}
-        />
+        <Appbar.BackAction onPress={navigation.goBack} />
         <Appbar.Content title="Sign up" />
       </Appbar.Header>
       <View style={{ padding: 20, gap: 10 }}>
@@ -42,8 +31,8 @@ const Signup = ({ navigation }) => {
           mode="flat"
           style={{ width: "100%" }}
           left={<TextInput.Icon icon="account-details" />}
-          value={firstName}
-          onChangeText={setFirstName}
+          value={signup.form.values.firstName}
+          onChangeText={signup.form.handleChange("firstName")}
         />
         <TextInput
           label="Last name"
@@ -51,8 +40,8 @@ const Signup = ({ navigation }) => {
           mode="flat"
           style={{ width: "100%" }}
           left={<TextInput.Icon icon="account-details" />}
-          value={lastName}
-          onChangeText={setLastName}
+          value={signup.form.values.lastName}
+          onChangeText={signup.form.handleChange("lastName")}
         />
         <TextInput
           label="Email (optional)"
@@ -61,8 +50,8 @@ const Signup = ({ navigation }) => {
           mode="flat"
           style={{ width: "100%" }}
           left={<TextInput.Icon icon="email" />}
-          value={email}
-          onChangeText={setEmail}
+          value={signup.form.values.email}
+          onChangeText={signup.form.handleChange("email")}
         />
         <TextInput
           label="Phone"
@@ -71,8 +60,8 @@ const Signup = ({ navigation }) => {
           mode="flat"
           style={{ width: "100%" }}
           left={<TextInput.Icon icon="phone" />}
-          value={phone}
-          onChangeText={setPhone}
+          value={signup.form.values.phone}
+          onChangeText={signup.form.handleChange("phone")}
         />
         <TextInput
           label="CNIC"
@@ -81,15 +70,15 @@ const Signup = ({ navigation }) => {
           mode="flat"
           style={{ width: "100%" }}
           left={<TextInput.Icon icon="card-account-details" />}
-          value={cnic}
-          onChangeText={setCnic}
+          value={signup.form.values.cnic}
+          onChangeText={signup.form.handleChange("cnic")}
         />
         <Button
           mode="contained"
           style={{ width: "100%" }}
-          loading={loading}
+          loading={signup.loading}
           icon="account-plus"
-          onPress={handleSubmit}
+          onPress={signup.form.handleSubmit}
         >
           Sign up
         </Button>
