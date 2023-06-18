@@ -1,15 +1,16 @@
+import { useEffect } from "react";
 import { View } from "react-native";
 import { Appbar, Button, Text, TextInput } from "react-native-paper";
 import useSignup from "../hooks/useSignup";
-import { useSnackbar } from "../context/snackbar.context";
 
 const Signup = ({ navigation }) => {
   const signup = useSignup();
-  const snackbar = useSnackbar();
 
-  if (signup.success) {
-    navigation.navigate("login");
-  }
+  useEffect(() => {
+    if (signup.success) {
+      navigation.navigate("login");
+    }
+  }, [signup.success]);
 
   return (
     <View style={{ flex: 1, gap: 10, justifyContent: "center" }}>

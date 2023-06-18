@@ -1,41 +1,32 @@
 import { createContext, useContext, useState } from "react";
 
 const SnackbarContext = createContext({
-  snackbar: null,
+  message: null,
+  hide: () => {},
   show: ({ message }) => {},
 });
 
 export const SnackbarProvider = ({ children }) => {
-  const [snackbar, setSnackbar] = useState(null);
+  const [message, setMessage] = useState(null);
+
+  const hide = () => {
+    setMessage(null);
+  };
 
   const show = ({ message }) => {
-    setSnackbar({
-      props: {
-        visible: true,
-        onDismiss: () => {
-          setSnackbar(null);
-        },
-        action: {
-          label: "Okay",
-          onPress: () => {
-            setSnackbar(null);
-          },
-        },
-        children: [message],
-      },
-      message,
-    });
+    setMessage(message);
 
-    setTimeout(() => {
-      setSnackbar(null);
-    }, 3000);
+    setTimeout(hide, 5000);
   };
+
+  console.log("SNACK", message);
 
   return (
     <SnackbarContext.Provider
       value={{
-        snackbar,
+        message,
         show,
+        hide,
       }}
     >
       {children}

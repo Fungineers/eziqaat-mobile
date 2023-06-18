@@ -2,6 +2,7 @@ import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import * as api from "../api/backend";
+import { useSnackbar } from "./snackbar.context";
 
 const { createContext } = require("react");
 
@@ -54,6 +55,8 @@ const AuthContext = createContext({
 export const AuthProvider = ({ children }) => {
   const tokenStorage = useAsyncStorage("token");
 
+  const snackbar = useSnackbar();
+
   const [auth, setAuth] = useState(signedOut());
 
   const authenticate = () => {
@@ -79,6 +82,8 @@ export const AuthProvider = ({ children }) => {
       .then(async (res) => {
         const { token, user } = res.data;
         await tokenStorage.setItem(token);
+        snackbar.show({ message: "Successfully signed in" });
+
         setAuth(signedIn(user));
       })
       .catch((err) => {
