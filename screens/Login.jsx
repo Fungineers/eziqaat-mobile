@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { View } from "react-native";
 import { Appbar, Button, Text, TextInput } from "react-native-paper";
+import { useAuth } from "../context/auth.context";
 
 const Login = ({ navigation }) => {
   const [passwordShown, setPasswordShown] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
 
+  const auth = useAuth();
+
+  const loading = auth.data.signingIn;
+
   const handleSubmit = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      navigation.navigate("main");
-    }, 1000);
+    auth.signin({ credential, password });
+    // navigation.navigate("main");
   };
 
   return (
