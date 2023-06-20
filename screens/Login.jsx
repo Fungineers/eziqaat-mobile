@@ -1,21 +1,19 @@
 import { useState } from "react";
 import { View } from "react-native";
-import { Appbar, Button, Text, TextInput } from "react-native-paper";
-import { useAuth } from "../context/auth.context";
+import {
+  Appbar,
+  Button,
+  HelperText,
+  Text,
+  TextInput,
+} from "react-native-paper";
+import useSignin from "../hooks/useSignin";
+import StringInput from "../components/StringInput";
 
 const Login = ({ navigation }) => {
   const [passwordShown, setPasswordShown] = useState(false);
-  const [credential, setCredential] = useState("");
-  const [password, setPassword] = useState("");
 
-  const auth = useAuth();
-
-  const loading = auth.data.signingIn;
-
-  const handleSubmit = () => {
-    auth.signin({ credential, password });
-    // navigation.navigate("main");
-  };
+  const login = useSignin();
 
   return (
     <View style={{ flex: 1, gap: 10, justifyContent: "center" }}>
@@ -24,39 +22,29 @@ const Login = ({ navigation }) => {
         <Appbar.Content title="Log in" />
       </Appbar.Header>
       <View style={{ padding: 20, gap: 10 }}>
-        <TextInput
+        <StringInput
           label="Credential"
           placeholder="E-mail/Phone/CNIC"
-          mode="flat"
-          style={{ width: "100%" }}
-          left={<TextInput.Icon icon="account" />}
-          value={credential}
-          onChangeText={setCredential}
+          icon="account"
+          value={login.form.values.credential}
+          onChangeText={login.form.handleChange("credential")}
+          error={login.form.errors.credential}
         />
-        <TextInput
+        <StringInput
           label="Password"
-          secureTextEntry={!passwordShown}
+          secureTextEntry={true}
           placeholder="Password"
-          mode="flat"
-          style={{ width: "100%" }}
-          left={<TextInput.Icon icon="form-textbox-password" />}
-          right={
-            <TextInput.Icon
-              onPress={() => {
-                setPasswordShown(!passwordShown);
-              }}
-              icon={passwordShown ? "eye-off" : "eye"}
-            />
-          }
-          value={password}
-          onChangeText={setPassword}
+          icon={"form-textbox-password"}
+          value={login.form.values.password}
+          onChangeText={login.form.handleChange("password")}
+          error={login.form.errors.password}
         />
         <Button
           mode="contained"
           style={{ width: "100%" }}
-          loading={loading}
+          loading={login.loading}
           icon="login"
-          onPress={handleSubmit}
+          onPress={login.form.handleSubmit}
         >
           Log in
         </Button>

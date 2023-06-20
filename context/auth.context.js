@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(authenticate, []);
 
-  const signin = ({ credential, password }) => {
+  const signin = ({ credential, password }, callback = () => {}) => {
     setAuth(signingIn());
     api
       .signin({ credential, password })
@@ -85,6 +85,7 @@ export const AuthProvider = ({ children }) => {
         snackbar.show({ message: "Successfully signed in" });
 
         setAuth(signedIn(user));
+        callback();
       })
       .catch((err) => {
         setAuth(

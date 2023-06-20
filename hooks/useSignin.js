@@ -1,18 +1,9 @@
 import { useFormik } from "formik";
-import { useState } from "react";
 import * as Yup from "yup";
-import * as api from "../api/backend";
-import { useSnackbar } from "../context/snackbar.context";
 import { useAuth } from "../context/auth.context";
 
 const useSignup = () => {
-  const snackbar = useSnackbar();
-
   const auth = useAuth();
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
 
   const form = useFormik({
     initialValues: {
@@ -24,15 +15,14 @@ const useSignup = () => {
       password: Yup.string().required("Required"),
     }),
     onSubmit: (values) => {
-      setLoading(true);
       auth.signin(values);
     },
   });
 
   return {
-    loading,
-    error,
-    success,
+    loading: auth.data.signingIn,
+    success: auth.data.signedIn,
+    error: auth.data.error,
     form,
   };
 };

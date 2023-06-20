@@ -14,7 +14,11 @@ apiInstance.interceptors.request.use(async (request) => {
 }, console.log);
 
 export const signin = async ({ credential, password }) => {
-  return await apiInstance.post("/auth/signin", { credential, password });
+  return await apiInstance.post("/auth/signin", {
+    credential,
+    password,
+    platform: "MOBILE",
+  });
 };
 
 export const me = async () => {
@@ -22,11 +26,12 @@ export const me = async () => {
 };
 
 export const signup = async ({ firstName, lastName, email, phone, cnic }) => {
+  const role = "DONOR";
   return await apiInstance.post("/user", {
     firstName,
     lastName,
     email,
-    role: "DONOR",
+    role,
     phone,
     cnic,
   });

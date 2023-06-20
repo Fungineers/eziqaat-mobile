@@ -23,9 +23,9 @@ const useSignup = () => {
     validationSchema: Yup.object().shape({
       firstName: Yup.string().required("Required"),
       lastName: Yup.string().required("Required"),
-      email: Yup.string()
-        .required("Required")
-        .matches(regexps.email, { message: "Incorrect format" }),
+      email: Yup.string().optional().matches(regexps.email, {
+        message: "Incorrect format",
+      }),
       phone: Yup.string()
         .required("Required")
         .matches(regexps.phone, { message: "Incorrect format" }),

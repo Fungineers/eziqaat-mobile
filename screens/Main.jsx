@@ -4,17 +4,20 @@ import {
   createDrawerNavigator,
 } from "@react-navigation/drawer";
 import { StyleSheet, View } from "react-native";
-import { Avatar, Caption, Paragraph, Title } from "react-native-paper";
+import { Button, Caption, Paragraph, Title } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import ProfileAndSettings from "./ProfileAndSettings";
+import { useAuth } from "../context/auth.context";
 import Donations from "./Donations";
+import ProfileAndSettings from "./ProfileAndSettings";
 
 const MainDrawer = createDrawerNavigator();
 
 const DrawerContent = (props) => {
+  const auth = useAuth();
+
   return (
-    <DrawerContentScrollView {...props} style={{ backgroundColor: "#fff" }}>
-      <View style={styles.drawerContent}>
+    <View style={{ backgroundColor: "#fff", flex: 1 }}>
+      <DrawerContentScrollView {...props} style={{ flex: 1 }}>
         <View style={styles.userInfoSection}>
           {/* <Avatar.Image
             source={{
@@ -33,9 +36,22 @@ const DrawerContent = (props) => {
             </View>
           </View>
         </View>
-        <DrawerItemList {...props} />
+        <View style={styles.drawerContent}>
+          <DrawerItemList {...props} />
+        </View>
+      </DrawerContentScrollView>
+      <View style={{ padding: 10 }}>
+        <Button
+          mode="contained"
+          style={{ width: "100%" }}
+          // loading={login.loading}
+          icon="logout"
+          onPress={auth.signout}
+        >
+          Log out
+        </Button>
       </View>
-    </DrawerContentScrollView>
+    </View>
   );
 };
 

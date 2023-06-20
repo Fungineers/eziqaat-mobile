@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { View } from "react-native";
 import { Appbar, Button, Text, TextInput } from "react-native-paper";
 import useSignup from "../hooks/useSignup";
+import StringInput from "../components/StringInput";
 
 const Signup = ({ navigation }) => {
   const signup = useSignup();
@@ -26,52 +27,47 @@ const Signup = ({ navigation }) => {
           You are signing up as a donor. Once you are signed up, we will send
           your password to the phone number you'd have provided.
         </Text>
-        <TextInput
+        <StringInput
           label="First name"
           placeholder="e.g. John"
-          mode="flat"
-          style={{ width: "100%" }}
-          left={<TextInput.Icon icon="account-details" />}
+          icon="account-details"
+          error={signup.form.errors.firstName}
           value={signup.form.values.firstName}
           onChangeText={signup.form.handleChange("firstName")}
         />
-        <TextInput
+        <StringInput
           label="Last name"
           placeholder="e.g. Doe"
-          mode="flat"
-          style={{ width: "100%" }}
-          left={<TextInput.Icon icon="account-details" />}
+          icon="account-details"
           value={signup.form.values.lastName}
+          error={signup.form.errors.lastName}
           onChangeText={signup.form.handleChange("lastName")}
         />
-        <TextInput
+        <StringInput
           label="Email (optional)"
           placeholder="e.g. johndoe123@xyz.com"
           keyboardType="email-address"
-          mode="flat"
-          style={{ width: "100%" }}
-          left={<TextInput.Icon icon="email" />}
+          icon="email"
           value={signup.form.values.email}
+          error={signup.form.errors.email}
           onChangeText={signup.form.handleChange("email")}
         />
-        <TextInput
+        <StringInput
           label="Phone"
           placeholder="e.g. +923001234567"
           keyboardType="phone-pad"
-          mode="flat"
-          style={{ width: "100%" }}
-          left={<TextInput.Icon icon="phone" />}
+          icon="phone"
           value={signup.form.values.phone}
+          error={signup.form.errors.phone}
           onChangeText={signup.form.handleChange("phone")}
         />
-        <TextInput
+        <StringInput
           label="CNIC"
           placeholder="e.g. 4210012345678"
           keyboardType="number-pad"
-          mode="flat"
-          style={{ width: "100%" }}
-          left={<TextInput.Icon icon="card-account-details" />}
+          icon="card-account-details"
           value={signup.form.values.cnic}
+          error={signup.form.errors.cnic}
           onChangeText={signup.form.handleChange("cnic")}
         />
         <Button
