@@ -23,7 +23,7 @@ const useSettings = () => {
     onSubmit: (values, { resetForm }) => {
       setLoading(true);
       api
-        .changeEmail({ email: values.email })
+        .changeEmail(values)
         .then((res) => {
           snackbar.show({ message: "Email updated successfully" });
           auth.update("email", values.email);
@@ -52,7 +52,7 @@ const useSettings = () => {
     onSubmit: (values, { resetForm }) => {
       setLoading(true);
       api
-        .changePhone({ phone: values.phone })
+        .changePhone(values)
         .then(() => {
           resetForm();
           snackbar.show({ message: "Phone updated successfully" });
@@ -83,10 +83,7 @@ const useSettings = () => {
     onSubmit: (values, { resetForm }) => {
       setLoading(true);
       api
-        .changePassword({
-          currentPassword: values.currentPassword,
-          newPassword: values.newPassword,
-        })
+        .changePassword(values)
         .then(() => {
           resetForm();
           snackbar.show({ message: "Password updated successfully" });

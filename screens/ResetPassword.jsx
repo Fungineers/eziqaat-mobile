@@ -1,28 +1,23 @@
-import { useState } from "react";
 import { View } from "react-native";
-import { Appbar, Button, Text, TextInput } from "react-native-paper";
+import { Appbar, Button, Text } from "react-native-paper";
+import StringInput from "../components/StringInput";
+import useResetPassword from "../hooks/useResetPassword";
+import { useEffect } from "react";
 
 const ResetPassword = ({ navigation }) => {
-  const [loading, setLoading] = useState(false);
-  const [credential, setCredential] = useState("");
+  const resetPassword = useResetPassword();
 
-  const handleSubmit = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+  useEffect(() => {
+    if (resetPassword.success) {
       navigation.navigate("login");
-    }, 1000);
-  };
+    }
+  }, [resetPassword.success]);
 
   return (
     <>
       <View style={{ flex: 1, justifyContent: "center" }}>
         <Appbar.Header mode="center-aligned">
-          <Appbar.BackAction
-            onPress={() => {
-              navigation.goBack();
-            }}
-          />
+          <Appbar.BackAction onPress={navigation.goBack} />
           <Appbar.Content title="Reset Password" />
         </Appbar.Header>
         <View style={{ padding: 20, gap: 10 }}>
@@ -34,21 +29,21 @@ const ResetPassword = ({ navigation }) => {
             done with it, you will receive the newly generated password through
             an SMS to the same phone number your account is registered with.
           </Text>
-          <TextInput
+          <StringInput
             label="Credential"
             placeholder="E-mail/Phone/CNIC"
             mode="flat"
-            style={{ width: "100%" }}
-            left={<TextInput.Icon icon="account" />}
-            value={credential}
-            onChangeText={setCredential}
+            icon="account"
+            value={resetPassword.form.values.credential}
+            error={resetPassword.form.errors.credential}
+            onChangeText={resetPassword.form.handleChange("credential")}
           />
           <Button
             mode="contained"
             style={{ width: "100%" }}
-            loading={loading}
+            loading={resetPassword.loading}
             icon="lock-reset"
-            onPress={handleSubmit}
+            onPress={resetPassword.form.handleSubmit}
           >
             Reset Password
           </Button>

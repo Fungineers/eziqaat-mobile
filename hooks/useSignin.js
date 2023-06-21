@@ -14,9 +14,7 @@ const useSignup = () => {
       credential: Yup.string().required("Required"),
       password: Yup.string().required("Required"),
     }),
-    onSubmit: (values) => {
-      auth.signin(values);
-    },
+    onSubmit: auth.signin,
   });
 
   return {

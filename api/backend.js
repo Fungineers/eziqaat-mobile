@@ -51,3 +51,9 @@ export const changePassword = async ({ currentPassword, newPassword }) => {
     newPassword,
   });
 };
+
+export const resetPassword = async ({ credential }) => {
+  return await apiInstance.patch("/user/password", {
+    credential,
+  });
+};
