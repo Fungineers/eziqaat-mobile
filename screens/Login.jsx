@@ -18,7 +18,6 @@ const Login = ({ navigation }) => {
   return (
     <View style={{ flex: 1, gap: 10, justifyContent: "center" }}>
       <Appbar.Header mode="center-aligned">
-        {/* <Appbar.BackAction onPress={() => {}} /> */}
         <Appbar.Content title="Log in" />
       </Appbar.Header>
       <View style={{ padding: 20, gap: 10 }}>
