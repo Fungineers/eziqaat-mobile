@@ -40,8 +40,6 @@ const useSettings = () => {
     },
   });
 
-  console.log(emailForm.values);
-
   const phoneForm = useFormik({
     initialValues: {
       phone: auth.data?.user?.phone || "",

@@ -45,6 +45,9 @@ export const changeEmail = async ({ email }) => {
   return await apiInstance.put("/user/email", { email });
 };
 
-export const changePassword = async ({ password }) => {
-  return await apiInstance.put("/user/password", { password });
+export const changePassword = async ({ currentPassword, newPassword }) => {
+  return await apiInstance.put("/user/password", {
+    currentPassword,
+    newPassword,
+  });
 };
