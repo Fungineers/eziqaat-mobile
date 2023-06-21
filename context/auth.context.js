@@ -46,10 +46,22 @@ const signinFailed = (error) => ({
   error,
 });
 
+const updateUser = (oldUser, key, value) => ({
+  signedIn: true,
+  authenticating: false,
+  signingIn: false,
+  user: {
+    ...oldUser,
+    [key]: value,
+  },
+  error: null,
+});
+
 const AuthContext = createContext({
   data: signedOut(),
   signin: ({ credential, password }) => {},
   signout: async () => {},
+  update: (key, value) => {},
 });
 
 export const AuthProvider = ({ children }) => {
@@ -99,6 +111,10 @@ export const AuthProvider = ({ children }) => {
     await tokenStorage.removeItem();
   };
 
+  const update = (key, value) => {
+    updateUser(auth.data.user, key, value);
+  };
+
   console.log("AUTH STATE", auth);
 
   return (
@@ -107,6 +123,7 @@ export const AuthProvider = ({ children }) => {
         data: auth,
         signin,
         signout,
+        update,
       }}
     >
       {children}

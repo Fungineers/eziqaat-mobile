@@ -3,14 +3,15 @@ import { View } from "react-native";
 import {
   Button,
   Dialog,
-  FAB,
   IconButton,
   Portal,
   Text,
-  TextInput,
   TouchableRipple,
 } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import StringInput from "../components/StringInput";
+import { useAuth } from "../context/auth.context";
+import useSettings from "../hooks/useSettings";
 
 const ItemRow = ({ children, icon, editHandler }) => (
   <TouchableRipple onPress={() => {}}>
@@ -62,17 +63,8 @@ const Info = ({ text }) => {
   );
 };
 
-const EditPhone = ({ hideDialog }) => {
-  const [phone, setPhone] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      hideDialog();
-    }, 1000);
-  };
+const EditPhone = () => {
+  const settings = useSettings();
 
   return (
     <>
@@ -82,24 +74,24 @@ const EditPhone = ({ hideDialog }) => {
           text="Phone must be unique. You'll be immediately logged out of current
           session and your password will be automatically reset as you proceed."
         />
-        <TextInput
+        <StringInput
           label="Phone"
           placeholder="e.g. +923001234567"
           keyboardType="phone-pad"
           mode="outlined"
-          style={{ width: "100%", marginVertical: 10 }}
-          left={<TextInput.Icon icon="phone" />}
-          value={phone}
-          onChangeText={setPhone}
+          icon="phone"
+          value={settings.phoneForm.values.phone}
+          error={settings.phoneForm.errors.phone}
+          onChangeText={settings.phoneForm.handleChange("phone")}
         />
       </Dialog.Content>
       <Dialog.Actions>
         <Button
           mode="contained"
           style={{ width: "100%" }}
-          loading={loading}
+          loading={settings.loading}
           icon="check"
-          onPress={handleSubmit}
+          onPress={settings.phoneForm.handleSubmit}
         >
           Save Changes
         </Button>
@@ -108,17 +100,8 @@ const EditPhone = ({ hideDialog }) => {
   );
 };
 
-const EditEmail = ({ hideDialog }) => {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      hideDialog();
-    }, 1000);
-  };
+const EditEmail = () => {
+  const settings = useSettings();
 
   return (
     <>
@@ -128,24 +111,23 @@ const EditEmail = ({ hideDialog }) => {
           text="E-mail must be unique. You'll have to first confirm your email address
           before your email alert will be activated."
         />
-        <TextInput
+        <StringInput
           label="Email (optional)"
           placeholder="e.g. johndoe123@xyz.com"
           keyboardType="email-address"
           mode="outlined"
-          style={{ width: "100%", marginVertical: 10 }}
-          left={<TextInput.Icon icon="email" />}
-          value={email}
-          onChangeText={setEmail}
+          icon="email"
+          value={settings.emailForm.values.email}
+          error={settings.emailForm.errors.email}
+          onChangeText={settings.emailForm.handleChange("email")}
         />
       </Dialog.Content>
       <Dialog.Actions>
         <Button
           mode="contained"
-          style={{ width: "100%" }}
-          loading={loading}
+          loading={settings.loading}
           icon="check"
-          onPress={handleSubmit}
+          onPress={settings.emailForm.handleSubmit}
         >
           Save Changes
         </Button>
@@ -154,20 +136,8 @@ const EditEmail = ({ hideDialog }) => {
   );
 };
 
-const EditPassword = ({ hideDialog }) => {
-  const [password, setPassword] = useState("");
-  const [passwordShown, setPasswordShown] = useState(false);
-  const [newPassword, setNewPassword] = useState("");
-  const [newPasswordShown, setNewPasswordShown] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      hideDialog();
-    }, 1000);
-  };
+const EditPassword = () => {
+  const settings = useSettings();
 
   return (
     <>
@@ -177,48 +147,31 @@ const EditPassword = ({ hideDialog }) => {
           text="You'll be logged of session on changing your password, and have to
           login again through new password."
         />
-        <TextInput
+        <StringInput
           label="Current Password"
-          secureTextEntry={!passwordShown}
+          secureTextEntry={true}
           mode="outlined"
-          style={{ width: "100%", marginVertical: 10 }}
-          left={<TextInput.Icon icon="form-textbox-password" />}
-          right={
-            <TextInput.Icon
-              onPress={() => {
-                setPasswordShown(!passwordShown);
-              }}
-              icon={passwordShown ? "eye-off" : "eye"}
-            />
-          }
-          value={password}
-          onChangeText={setPassword}
+          icon="form-textbox-password"
+          value={settings.passwordForm.values.currentPassword}
+          error={settings.passwordForm.errors.currentPassword}
+          onChangeText={settings.passwordForm.handleChange("currentPassword")}
         />
-        <TextInput
+        <StringInput
           label="New Password"
-          secureTextEntry={!newPasswordShown}
+          secureTextEntry={true}
           mode="outlined"
-          style={{ width: "100%", marginVertical: 10 }}
-          left={<TextInput.Icon icon="form-textbox-password" />}
-          right={
-            <TextInput.Icon
-              onPress={() => {
-                setNewPasswordShown(!newPasswordShown);
-              }}
-              icon={newPasswordShown ? "eye-off" : "eye"}
-            />
-          }
-          value={newPassword}
-          onChangeText={setNewPassword}
+          icon="form-textbox-password"
+          value={settings.passwordForm.values.newPassword}
+          error={settings.passwordForm.errors.newPassword}
+          onChangeText={settings.passwordForm.handleChange("newPassword")}
         />
       </Dialog.Content>
       <Dialog.Actions>
         <Button
           mode="contained"
-          style={{ width: "100%" }}
-          loading={loading}
+          loading={settings.loading}
           icon="check"
-          onPress={handleSubmit}
+          onPress={settings.passwordForm.handleSubmit}
         >
           Save Changes
         </Button>
@@ -228,48 +181,62 @@ const EditPassword = ({ hideDialog }) => {
 };
 
 const CustomDialog = ({ activeSetting, hideDialog }) => {
+  const settings = useSettings();
+
   return (
     <Portal>
-      <Dialog visible={!!activeSetting} onDismiss={hideDialog}>
+      <Dialog
+        visible={!!activeSetting}
+        onDismiss={() => {
+          if (!settings.loading) {
+            hideDialog();
+          }
+        }}
+      >
         {activeSetting === "phone" ? (
-          <EditPhone hideDialog={hideDialog} />
+          <EditPhone />
         ) : activeSetting === "email" ? (
-          <EditEmail hideDialog={hideDialog} />
+          <EditEmail />
         ) : activeSetting === "password" ? (
-          <EditPassword hideDialog={hideDialog} />
+          <EditPassword />
         ) : null}
       </Dialog>
     </Portal>
   );
 };
 
-const ProfileAndSettings = ({ navigation }) => {
+const ProfileAndSettings = () => {
   const [activeSetting, setActiveSetting] = useState("");
+
+  const auth = useAuth();
+
+  const { firstName, lastName, role, email, phone, cnic } = auth.data.user;
+
   return (
     <View style={{ padding: 20, gap: 10 }}>
       <Text variant="titleMedium">General</Text>
       <ItemRow icon="account-circle-outline">
-        <Item title="First Name" value="Daniyal" />
-        <Item title="Last Name" value="Aamir" />
+        <Item title="First Name" value={firstName} />
+        <Item title="Last Name" value={lastName} />
       </ItemRow>
       <ItemRow icon="card-account-details-outline">
-        <Item title="CNIC Number" value="42101-8387652-7" />
+        <Item title="CNIC Number" value={cnic} />
       </ItemRow>
       <ItemRow icon="information-outline">
-        <Item title="Role" value="Chairperson" />
+        <Item title="Role" value={role} />
       </ItemRow>
       <Text variant="titleMedium">Account</Text>
       <ItemRow
         icon="phone-outline"
         editHandler={() => setActiveSetting("phone")}
       >
-        <Item title="Phone" value="+92 304 2868395" />
+        <Item title="Phone" value={phone} />
       </ItemRow>
       <ItemRow
         icon="email-outline"
         editHandler={() => setActiveSetting("email")}
       >
-        <Item title="E-mail" value="daniyal.amir110@gmail.com" />
+        <Item title="E-mail" value={email} />
       </ItemRow>
       <Text variant="titleMedium">Security</Text>
       <ItemRow

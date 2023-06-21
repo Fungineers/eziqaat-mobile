@@ -5,6 +5,7 @@ import { HelperText, TextInput } from "react-native-paper";
 const StringInput = ({
   label = "",
   secureTextEntry = false,
+  mode = "flat",
   placeholder = "",
   icon = "",
   value = "",
@@ -19,7 +20,7 @@ const StringInput = ({
       <TextInput
         label={label}
         placeholder={placeholder}
-        mode="flat"
+        mode={mode}
         keyboardType={keyboardType}
         style={{ width: "100%" }}
         left={icon && <TextInput.Icon icon={icon} />}
@@ -33,14 +34,16 @@ const StringInput = ({
             />
           )
         }
-        secureTextEntry={!shown}
+        secureTextEntry={secureTextEntry && !shown}
         value={value}
         onChangeText={onChangeText}
         error={!!error}
       />
-      <HelperText type="error" visible={!!error}>
-        {error}
-      </HelperText>
+      {error ? (
+        <HelperText type="error" visible={!!error}>
+          {error}
+        </HelperText>
+      ) : <></>}
     </View>
   );
 };

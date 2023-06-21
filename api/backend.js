@@ -36,3 +36,15 @@ export const signup = async ({ firstName, lastName, email, phone, cnic }) => {
     cnic,
   });
 };
+
+export const changePhone = async ({ phone }) => {
+  return await apiInstance.put("/user/phone", { phone });
+};
+
+export const changeEmail = async ({ email }) => {
+  return await apiInstance.put("/user/email", { email });
+};
+
+export const changePassword = async ({ password }) => {
+  return await apiInstance.put("/user/password", { password });
+};

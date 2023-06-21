@@ -42,9 +42,8 @@ const DrawerContent = (props) => {
       </DrawerContentScrollView>
       <View style={{ padding: 10 }}>
         <Button
-          mode="contained"
+          mode="contained-tonal"
           style={{ width: "100%" }}
-          // loading={login.loading}
           icon="logout"
           onPress={auth.signout}
         >
