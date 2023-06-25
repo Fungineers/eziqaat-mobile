@@ -41,7 +41,7 @@ const AppInner = () => {
   return (
     <>
       <RootStack.Navigator
-        initialRouteName={auth.data.signedIn ? "login" : "login"}
+        initialRouteName={auth.data.signedIn ? "main" : "login"}
         screenOptions={{ headerShown: false }}
       >
         {auth.data.signedIn ? (

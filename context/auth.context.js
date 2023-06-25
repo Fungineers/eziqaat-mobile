@@ -57,8 +57,10 @@ const updateUser = (oldUser, key, value) => ({
   error: null,
 });
 
+const initialData = signedOut();
+
 const AuthContext = createContext({
-  data: signedOut(),
+  data: initialData,
   signin: ({ credential, password }) => {},
   signout: async () => {},
   update: (key, value) => {},
@@ -69,7 +71,7 @@ export const AuthProvider = ({ children }) => {
 
   const snackbar = useSnackbar();
 
-  const [auth, setAuth] = useState(signedOut());
+  const [auth, setAuth] = useState(initialData);
 
   const authenticate = () => {
     setAuth(authenticating());
@@ -87,7 +89,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(authenticate, []);
 
-  const signin = ({ credential, password }, callback = () => {}) => {
+  const signin = ({ credential, password }) => {
     setAuth(signingIn());
     api
       .signin({ credential, password })
@@ -95,9 +97,7 @@ export const AuthProvider = ({ children }) => {
         const { token, user } = res.data;
         await tokenStorage.setItem(token);
         snackbar.show({ message: "Successfully signed in" });
-
         setAuth(signedIn(user));
-        callback();
       })
       .catch((err) => {
         setAuth(

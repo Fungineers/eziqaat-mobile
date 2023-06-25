@@ -17,6 +17,11 @@ const Donations = ({ navigation }) => {
       }}
     >
       <Tab.Screen
+        name="requested-donations"
+        options={{ title: "Requested" }}
+        component={PendingDonationsChairperson}
+      />
+      <Tab.Screen
         name="pending-donations"
         options={{ title: "Pending" }}
         component={PendingDonationsChairperson}

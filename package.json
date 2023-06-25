@@ -6,7 +6,9 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "create:component": "./scripts/create-node.sh components",
+    "create:screen": "./scripts/create-node.sh screens"
   },
   "dependencies": {
     "@expo/webpack-config": "^18.0.1",

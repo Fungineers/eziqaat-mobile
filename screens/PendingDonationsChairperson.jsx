@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { ScrollView, View } from "react-native";
 import {
-  Avatar,
   Card,
   FAB,
   IconButton,
   Searchbar,
   Text,
-  TouchableRipple,
   useTheme,
 } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";

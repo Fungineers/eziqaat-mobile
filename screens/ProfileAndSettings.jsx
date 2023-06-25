@@ -7,40 +7,51 @@ import {
   Portal,
   Text,
   TouchableRipple,
+  useTheme,
 } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import StringInput from "../components/StringInput";
 import { useAuth } from "../context/auth.context";
 import useSettings from "../hooks/useSettings";
 
-const ItemRow = ({ children, icon, editHandler }) => (
-  <TouchableRipple onPress={() => {}}>
-    <View
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        width: "100%",
-        padding: 10,
-      }}
-    >
-      <MaterialCommunityIcons
-        name={icon}
-        size={24}
-        style={{ paddingRight: 20 }}
-      />
-      {children}
-      {!!editHandler && (
-        <IconButton icon="pencil" size={20} onPress={editHandler} />
-      )}
-    </View>
-  </TouchableRipple>
-);
+const ItemRow = ({ children, icon, editHandler }) => {
+  const theme = useTheme();
+  return (
+    <TouchableRipple onPress={() => {}}>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          width: "100%",
+          padding: 10,
+        }}
+      >
+        <MaterialCommunityIcons
+          name={icon}
+          size={24}
+          style={{ paddingRight: 20 }}
+          color={theme.colors.primary}
+        />
+        {children}
+        {!!editHandler && (
+          <IconButton
+            icon="pencil"
+            iconColor={theme.colors.secondary}
+            size={20}
+            onPress={editHandler}
+          />
+        )}
+      </View>
+    </TouchableRipple>
+  );
+};
 
 const Item = ({ title, value }) => {
+  const theme = useTheme();
   return (
     <View style={{ flex: 1 }}>
-      <Text variant="bodySmall" style={{ color: "#888" }}>
+      <Text variant="bodySmall" style={{ color: theme.colors.secondary }}>
         {title}
       </Text>
       <Text variant="bodyMedium">{value}</Text>

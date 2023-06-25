@@ -9,6 +9,8 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { useAuth } from "../context/auth.context";
 import Donations from "./Donations";
 import ProfileAndSettings from "./ProfileAndSettings";
+import Dashboard from "./Dashboard";
+import ManageWorkers from "./ManageWorkers";
 
 const MainDrawer = createDrawerNavigator();
 
@@ -97,12 +99,12 @@ const Main = () => {
             <MaterialCommunityIcons {...props} name="view-dashboard-outline" />
           ),
         }}
-        component={() => <></>}
+        component={Dashboard}
       />
       <MainDrawer.Screen
         name="worker-management"
         options={{
-          title: "Worker Management",
+          title: "Manage Workers",
           drawerIcon: (props) => (
             <MaterialCommunityIcons
               {...props}
@@ -110,7 +112,7 @@ const Main = () => {
             />
           ),
         }}
-        component={() => <></>}
+        component={ManageWorkers}
       />
       <MainDrawer.Screen
         name="donations"
