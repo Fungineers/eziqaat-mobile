@@ -5,8 +5,6 @@ import StringInput from "../components/StringInput";
 import useSignin from "../hooks/useSignin";
 
 const Login = ({ navigation }) => {
-  const [passwordShown, setPasswordShown] = useState(false);
-
   const login = useSignin();
 
   return (

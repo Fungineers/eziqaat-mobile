@@ -45,7 +45,9 @@ const AppInner = () => {
         screenOptions={{ headerShown: false }}
       >
         {auth.data.signedIn ? (
-          <RootStack.Screen name="main" component={Main} />
+          <>
+            <RootStack.Screen name="main" component={Main} />
+          </>
         ) : (
           <>
             <RootStack.Screen name="login" component={Login} />

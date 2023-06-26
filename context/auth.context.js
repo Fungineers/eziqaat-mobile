@@ -100,9 +100,9 @@ export const AuthProvider = ({ children }) => {
         setAuth(signedIn(user));
       })
       .catch((err) => {
-        setAuth(
-          signinFailed(err?.response?.data?.message || "Something went wrong")
-        );
+        const message = err?.response?.data?.message || "Something went wrong";
+        setAuth(signinFailed(message));
+        snackbar.show({ message });
       });
   };
 

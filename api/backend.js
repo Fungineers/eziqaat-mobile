@@ -57,3 +57,31 @@ export const resetPassword = async ({ credential }) => {
     credential,
   });
 };
+
+export const createWorker = async ({
+  firstName,
+  lastName,
+  email,
+  phone,
+  cnic,
+}) => {
+  return await apiInstance.post("/worker", {
+    firstName,
+    lastName,
+    email,
+    phone,
+    cnic,
+  });
+};
+
+export const getWorkers = async () => {
+  return await apiInstance.get("/worker");
+};
+
+export const getWorkerById = async (id) => {
+  return await apiInstance.get(`/worker/${id}`);
+};
+
+export const getChairpersonDashboard = async () => {
+  return await apiInstance.get("/dashboard");
+};

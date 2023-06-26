@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { View } from "react-native";
-import { HelperText, TextInput } from "react-native-paper";
+import { HelperText, TextInput, useTheme } from "react-native-paper";
 
 const StringInput = ({
   label = "",
   secureTextEntry = false,
-  mode = "flat",
+  mode = "outlined",
   placeholder = "",
   icon = "",
   value = "",
@@ -14,6 +14,7 @@ const StringInput = ({
   keyboardType = "default",
 }) => {
   const [shown, setShown] = useState(false);
+  const theme = useTheme();
 
   return (
     <View style={{ width: "100%" }}>
@@ -23,7 +24,14 @@ const StringInput = ({
         mode={mode}
         keyboardType={keyboardType}
         style={{ width: "100%" }}
-        left={icon && <TextInput.Icon icon={icon} />}
+        left={
+          icon && (
+            <TextInput.Icon
+              icon={icon}
+              iconColor={error ? theme.colors.error : theme.colors.primary}
+            />
+          )
+        }
         right={
           secureTextEntry && (
             <TextInput.Icon
@@ -31,6 +39,7 @@ const StringInput = ({
                 setShown(!shown);
               }}
               icon={shown ? "eye-off" : "eye"}
+              iconColor={theme.colors.primary}
             />
           )
         }
@@ -43,7 +52,9 @@ const StringInput = ({
         <HelperText type="error" visible={!!error}>
           {error}
         </HelperText>
-      ) : <></>}
+      ) : (
+        <></>
+      )}
     </View>
   );
 };

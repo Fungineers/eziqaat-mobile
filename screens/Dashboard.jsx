@@ -1,8 +1,7 @@
 import { ScrollView, View } from "react-native";
-import { Surface, Text } from "react-native-paper";
-import WelcomeSection from "../components/WelcomeSection";
-import DashboardStats from "../components/DashboardStats";
 import DashboardExplore from "../components/DashboardExplore";
+import DashboardStats from "../components/DashboardStats";
+import WelcomeSection from "../components/WelcomeSection";
 
 const Dashboard = () => {
   return (

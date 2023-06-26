@@ -11,6 +11,7 @@ import Donations from "./Donations";
 import ProfileAndSettings from "./ProfileAndSettings";
 import Dashboard from "./Dashboard";
 import ManageWorkers from "./ManageWorkers";
+import NotificationMenu from "../components/NotificationMenu";
 
 const MainDrawer = createDrawerNavigator();
 
@@ -90,7 +91,12 @@ const styles = StyleSheet.create({
 
 const Main = () => {
   return (
-    <MainDrawer.Navigator drawerContent={DrawerContent}>
+    <MainDrawer.Navigator
+      drawerContent={DrawerContent}
+      screenOptions={{
+        headerRight: NotificationMenu,
+      }}
+    >
       <MainDrawer.Screen
         name="dashboard"
         options={{

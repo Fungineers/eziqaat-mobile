@@ -11,7 +11,12 @@ const WelcomeSection = () => {
       style={{ padding: 16, borderRadius: 8, backgroundColor: "#0000" }}
     >
       <View style={{ flexDirection: "row", gap: 16, alignItems: "center" }}>
-        <Avatar.Text size={64} label="D" />
+        <Avatar.Text
+          size={64}
+          label="D"
+          color={theme.colors.primary}
+          style={{ backgroundColor: theme.colors.primaryContainer }}
+        />
         <View style={{ flexDirection: "column", gap: 4 }}>
           <Text variant="bodyMedium" style={{ color: theme.colors.secondary }}>
             Welcome 👋
