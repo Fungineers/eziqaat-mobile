@@ -1,36 +1,20 @@
 import { DefaultTheme } from "react-native-paper";
 
-const colors = {
-  primary: "#102770",
-  primaryContainer: "#0d1c57",
-  secondary: "#4286f4",
-  secondaryContainer: "#3372e4",
-  tertiary: "#82bfff",
-  tertiaryContainer: "#6fabf7",
-  surface: "#ffffff",
-  surfaceVariant: "#ffffff",
-  surfaceDisabled: "#f0f0f0",
-  background: "#fff",
-  error: "#ff3b30",
-  errorContainer: "#e6352b",
-  onPrimary: "#ffffff",
-  onPrimaryContainer: "#ffffff",
-  onSurfaceDisabled: "#757575",
-  onError: "#ffffff",
-  onErrorContainer: "#ffffff",
-  outline: "#102770",
-  outlineVariant: "#0d1c57",
-  inverseOnSurface: "#ffffff",
-  inversePrimary: "#ffffff",
-};
+let theme = DefaultTheme;
 
-const theme = {
+theme = {
   ...DefaultTheme,
   roundness: 1,
-  colors: {
-    ...DefaultTheme.colors,
-    // ...colors,
-  },
+  // colors: {
+  //   ...DefaultTheme.colors,
+  //   // primary: "#2e7d32",
+  //   // primaryContainer: "#e8f5e9",
+  //   // inversePrimary: "#c8e6c9",
+  //   // onPrimary: "#e8f5e9",
+  //   // onPrimaryContainer: "#a5d6a7",
+  //   // surface: "#fff",
+  //   // background: "#fff",
+  // },
 };
 
 export default theme;

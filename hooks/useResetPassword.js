@@ -15,6 +15,7 @@ const useResetPassword = () => {
     initialValues: {
       credential: "",
     },
+    validateOnChange: false,
     validationSchema: Yup.object().shape({
       credential: Yup.string()
         .required("Required")

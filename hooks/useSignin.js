@@ -10,6 +10,7 @@ const useSignup = () => {
       credential: "",
       password: "",
     },
+    validateOnChange: false,
     validationSchema: Yup.object().shape({
       credential: Yup.string().required("Required"),
       password: Yup.string().required("Required"),

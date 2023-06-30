@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, ScrollView, View } from "react-native";
+import { Dimensions, Linking, ScrollView, View } from "react-native";
 import {
   ActivityIndicator,
   Avatar,
@@ -253,6 +253,37 @@ const WorkerDetails = ({ worker }) => {
             )}
           </View>
         </View>
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 12,
+        }}
+      >
+        <Button
+          loading={workerDetails.loading}
+          icon="phone"
+          mode="contained-tonal"
+          onPress={() => {
+            Linking.openURL(`tel:${workerDetails.data?.phone}`);
+          }}
+          style={{ flex: 1 }}
+        >
+          Call
+        </Button>
+        <Button
+          loading={workerDetails.loading}
+          icon="email"
+          mode="contained-tonal"
+          onPress={() => {
+            Linking.openURL(`mailto:${workerDetails.data?.email}`);
+          }}
+          style={{ flex: 1 }}
+        >
+          Email
+        </Button>
       </View>
 
       <Surface

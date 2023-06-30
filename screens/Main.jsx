@@ -4,7 +4,13 @@ import {
   createDrawerNavigator,
 } from "@react-navigation/drawer";
 import { StyleSheet, View } from "react-native";
-import { Button, Caption, Paragraph, Title } from "react-native-paper";
+import {
+  Button,
+  Caption,
+  Paragraph,
+  Title,
+  useTheme,
+} from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useAuth } from "../context/auth.context";
 import Donations from "./Donations";
@@ -12,6 +18,7 @@ import ProfileAndSettings from "./ProfileAndSettings";
 import Dashboard from "./Dashboard";
 import ManageWorkers from "./ManageWorkers";
 import NotificationMenu from "../components/NotificationMenu";
+import ThreeDotMenu from "../components/ThreeDotMenu";
 
 const MainDrawer = createDrawerNavigator();
 
@@ -90,17 +97,21 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
+  const theme = useTheme();
   return (
     <MainDrawer.Navigator
       drawerContent={DrawerContent}
       screenOptions={{
-        headerRight: NotificationMenu,
+        headerBackgroundContainerStyle: {
+          backgroundColor: theme.colors.surface,
+        },
       }}
     >
       <MainDrawer.Screen
         name="dashboard"
         options={{
           title: "Dashboard",
+          headerRight: NotificationMenu,
           drawerIcon: (props) => (
             <MaterialCommunityIcons {...props} name="view-dashboard-outline" />
           ),
@@ -111,6 +122,7 @@ const Main = () => {
         name="worker-management"
         options={{
           title: "Manage Workers",
+          headerRight: ThreeDotMenu,
           drawerIcon: (props) => (
             <MaterialCommunityIcons
               {...props}

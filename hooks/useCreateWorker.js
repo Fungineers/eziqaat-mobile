@@ -20,6 +20,7 @@ const useSignup = ({ successCallback = () => {} }) => {
       phone: "",
       cnic: "",
     },
+    validateOnChange: false,
     validationSchema: Yup.object().shape({
       firstName: Yup.string().required("Required"),
       lastName: Yup.string().required("Required"),

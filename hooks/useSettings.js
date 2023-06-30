@@ -15,6 +15,7 @@ const useSettings = () => {
     initialValues: {
       email: auth.data?.user?.email || "",
     },
+    validateOnChange: false,
     validationSchema: Yup.object().shape({
       email: Yup.string()
         .required("Required")
@@ -44,6 +45,7 @@ const useSettings = () => {
     initialValues: {
       phone: auth.data?.user?.phone || "",
     },
+    validateOnChange: false,
     validationSchema: Yup.object().shape({
       phone: Yup.string()
         .required("Required")
@@ -74,6 +76,7 @@ const useSettings = () => {
       currentPassword: "",
       newPassword: "",
     },
+    validateOnChange: false,
     validationSchema: Yup.object().shape({
       currentPassword: Yup.string().required("Required"),
       newPassword: Yup.string().required("Required").matches(regexps.password, {

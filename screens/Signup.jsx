@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Appbar, Button, Text, TextInput } from "react-native-paper";
 import useSignup from "../hooks/useSignup";
 import StringInput from "../components/StringInput";
+import Note from "../components/Note";
 
 const Signup = ({ navigation }) => {
   const signup = useSignup();
@@ -15,18 +16,12 @@ const Signup = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1, gap: 10, justifyContent: "center" }}>
-      <Appbar.Header mode="center-aligned">
+      <Appbar.Header mode="small">
         <Appbar.BackAction onPress={navigation.goBack} />
         <Appbar.Content title="Sign up" />
       </Appbar.Header>
       <View style={{ padding: 20, gap: 10 }}>
-        <Text
-          variant="bodyMedium"
-          style={{ textAlign: "left", marginBottom: 20 }}
-        >
-          You are signing up as a donor. Once you are signed up, we will send
-          your password to the phone number you'd have provided.
-        </Text>
+        <Note text="You are signing up as a donor. Once you are signed up, we will send your password to the phone number you'd have provided." />
         <StringInput
           label="First name"
           placeholder="e.g. John"
