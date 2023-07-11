@@ -1,7 +1,7 @@
 import { ScrollView, View } from "react-native";
-import DashboardExplore from "../components/DashboardExplore";
-import DashboardStats from "../components/DashboardStats";
-import WelcomeSection from "../components/WelcomeSection";
+import DashboardExplore from "../../components/DashboardExplore";
+import DashboardStats from "../../components/DashboardStats";
+import WelcomeSection from "../../components/WelcomeSection";
 
 const Dashboard = () => {
   return (

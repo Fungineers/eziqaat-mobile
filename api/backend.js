@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const apiInstance = axios.create({
-  baseURL: "http://192.168.0.106:3001",
+  baseURL: "http://192.168.0.102:3001",
 });
 
 apiInstance.interceptors.request.use(async (request) => {
@@ -13,8 +13,8 @@ apiInstance.interceptors.request.use(async (request) => {
   return request;
 }, console.log);
 
-export const signin = async ({ credential, password }) => {
-  return await apiInstance.post("/auth/signin", {
+export const login = async ({ credential, password }) => {
+  return await apiInstance.post("/auth/login", {
     credential,
     password,
     platform: "MOBILE",
@@ -53,7 +53,7 @@ export const changePassword = async ({ currentPassword, newPassword }) => {
 };
 
 export const resetPassword = async ({ credential }) => {
-  return await apiInstance.patch("/user/password", {
+  return await apiInstance.put("/user/password/reset", {
     credential,
   });
 };

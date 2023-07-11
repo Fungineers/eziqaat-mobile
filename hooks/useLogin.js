@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../context/auth.context";
 
-const useSignup = () => {
+const useLogin = () => {
   const auth = useAuth();
 
   const form = useFormik({
@@ -26,4 +26,4 @@ const useSignup = () => {
   };
 };
 
-export default useSignup;
+export default useLogin;

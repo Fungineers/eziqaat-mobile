@@ -5,6 +5,7 @@ import {
 } from "@react-navigation/drawer";
 import { StyleSheet, View } from "react-native";
 import {
+  Appbar,
   Button,
   Caption,
   Paragraph,
@@ -102,6 +103,7 @@ const Main = () => {
     <MainDrawer.Navigator
       drawerContent={DrawerContent}
       screenOptions={{
+        headerShadowVisible: false,
         headerBackgroundContainerStyle: {
           backgroundColor: theme.colors.surface,
         },

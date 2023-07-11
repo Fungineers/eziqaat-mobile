@@ -59,7 +59,9 @@ const AppInner = () => {
       <Snackbar
         visible={snackbar.message}
         onDismiss={snackbar.hide}
+        icon="check"
         action={{ label: "Okay", onPress: snackbar.hide }}
+        style={{ zIndex: 100 }}
       >
         {snackbar.message}
       </Snackbar>

@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { View } from "react-native";
 import { Appbar, Button, Text } from "react-native-paper";
 import StringInput from "../components/StringInput";
-import useSignin from "../hooks/useSignin";
+import useLogin from "../hooks/useLogin";
 
 const Login = ({ navigation }) => {
-  const login = useSignin();
+  const login = useLogin();
 
   return (
     <View style={{ flex: 1, gap: 10, justifyContent: "center" }}>

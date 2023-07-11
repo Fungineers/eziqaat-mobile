@@ -1,7 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import { View } from "react-native";
-import { Divider, Menu, Button, IconButton } from "react-native-paper";
+import {
+  Divider,
+  Menu,
+  Button,
+  IconButton,
+  useTheme,
+} from "react-native-paper";
 
 const ThreeDotMenu = () => {
   const [visible, setVisible] = useState(false);
@@ -9,6 +15,8 @@ const ThreeDotMenu = () => {
   const openMenu = () => setVisible(true);
 
   const closeMenu = () => setVisible(false);
+
+  const theme = useTheme();
 
   return (
     <Menu
@@ -21,7 +29,7 @@ const ThreeDotMenu = () => {
       <Divider />
       <Menu.Item
         onPress={() => {}}
-        title="Managed Disabled Workers Managed Disabled Workers Managed Disabled Workers"
+        title="Manage Disabled Workers"
         leadingIcon="cancel"
       />
     </Menu>

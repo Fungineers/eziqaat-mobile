@@ -22,7 +22,6 @@ const ItemRow = ({ children, icon, editHandler }) => {
         style={{
           display: "flex",
           flexDirection: "row",
-          alignItems: "center",
           width: "100%",
           padding: 10,
         }}
@@ -47,7 +46,7 @@ const ItemRow = ({ children, icon, editHandler }) => {
   );
 };
 
-const Item = ({ title, value }) => {
+const Item = ({ title, value, children }) => {
   const theme = useTheme();
   return (
     <View style={{ flex: 1 }}>
@@ -55,13 +54,16 @@ const Item = ({ title, value }) => {
         {title}
       </Text>
       <Text variant="bodyMedium">{value}</Text>
+      {children}
     </View>
   );
 };
 
 const Info = ({ text }) => {
   return (
-    <View style={{ display: "flex", flexDirection: "row" }}>
+    <View
+      style={{ display: "flex", flexDirection: "row", paddingVertical: 10 }}
+    >
       <MaterialCommunityIcons
         name="information-outline"
         size={20}
@@ -96,13 +98,14 @@ const EditPhone = () => {
           onChangeText={settings.phoneForm.handleChange("phone")}
         />
       </Dialog.Content>
-      <Dialog.Actions>
+      <Dialog.Actions style={{ width: "100%" }}>
         <Button
           mode="contained"
           style={{ width: "100%" }}
           loading={settings.loading}
           icon="check"
           onPress={settings.phoneForm.handleSubmit}
+          disabled={settings.phoneForm.values.phone === settings.currentPhone}
         >
           Save Changes
         </Button>
@@ -133,12 +136,14 @@ const EditEmail = () => {
           onChangeText={settings.emailForm.handleChange("email")}
         />
       </Dialog.Content>
-      <Dialog.Actions>
+      <Dialog.Actions style={{ width: "100%" }}>
         <Button
           mode="contained"
+          style={{ width: "100%" }}
           loading={settings.loading}
           icon="check"
           onPress={settings.emailForm.handleSubmit}
+          disabled={settings.emailForm.values.email === settings.currentEmail}
         >
           Save Changes
         </Button>
@@ -177,9 +182,10 @@ const EditPassword = () => {
           onChangeText={settings.passwordForm.handleChange("newPassword")}
         />
       </Dialog.Content>
-      <Dialog.Actions>
+      <Dialog.Actions style={{ width: "100%" }}>
         <Button
           mode="contained"
+          style={{ width: "100%" }}
           loading={settings.loading}
           icon="check"
           onPress={settings.passwordForm.handleSubmit}
@@ -247,7 +253,11 @@ const ProfileAndSettings = () => {
         icon="email-outline"
         editHandler={() => setActiveSetting("email")}
       >
-        <Item title="E-mail" value={email} />
+        <Item title="E-mail" value={email}>
+          {/* <Button mode="contained" icon="check-decagram">
+            Verify
+          </Button> */}
+        </Item>
       </ItemRow>
       <Text variant="titleMedium">Security</Text>
       <ItemRow

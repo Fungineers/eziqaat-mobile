@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import * as api from "../api/backend";
 import { useSnackbar } from "./snackbar.context";
+import getTokenFromResponse from "../utils/getTokenFromResponse";
 
 const { createContext } = require("react");
 
@@ -92,9 +93,10 @@ export const AuthProvider = ({ children }) => {
   const signin = ({ credential, password }) => {
     setAuth(signingIn());
     api
-      .signin({ credential, password })
+      .login({ credential, password })
       .then(async (res) => {
-        const { token, user } = res.data;
+        const { user } = res.data;
+        const token = getTokenFromResponse(res);
         await tokenStorage.setItem(token);
         snackbar.show({ message: "Successfully signed in" });
         setAuth(signedIn(user));
@@ -112,7 +114,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const update = (key, value) => {
-    updateUser(auth.data.user, key, value);
+    updateUser(auth.user, key, value);
   };
 
   console.log("AUTH STATE", auth);

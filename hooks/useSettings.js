@@ -26,7 +26,8 @@ const useSettings = () => {
       api
         .changeEmail(values)
         .then((res) => {
-          snackbar.show({ message: "Email updated successfully" });
+          const { message } = res.data;
+          snackbar.show({ message });
           auth.update("email", values.email);
           resetForm();
         })
@@ -105,6 +106,8 @@ const useSettings = () => {
 
   return {
     loading,
+    currentEmail: auth.data.user?.email,
+    currentPhone: auth.data.user?.phone,
     emailForm,
     phoneForm,
     passwordForm,
