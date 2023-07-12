@@ -58,7 +58,7 @@ const updateUser = (oldUser, key, value) => ({
   error: null,
 });
 
-const initialData = signedOut();
+const initialData = authenticating();
 
 const AuthContext = createContext({
   data: initialData,
@@ -99,7 +99,7 @@ export const AuthProvider = ({ children }) => {
         const token = getTokenFromResponse(res);
         await tokenStorage.setItem(token);
         snackbar.show({ message: "Successfully signed in" });
-        setAuth(signedIn(user));
+        authenticate();
       })
       .catch((err) => {
         const message = err?.response?.data?.message || "Something went wrong";

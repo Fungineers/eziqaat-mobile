@@ -85,3 +85,19 @@ export const getWorkerById = async (id) => {
 export const getChairpersonDashboard = async () => {
   return await apiInstance.get("/dashboard");
 };
+
+export const getAreas = async () => {
+  return await apiInstance.get("/area");
+};
+
+export const donorDonationRequest = async ({ areaId, amount, address }) => {
+  return await apiInstance.post("/donation/request", {
+    areaId,
+    amount,
+    address,
+  });
+};
+
+export const getDonorRequests = async () => {
+  return await apiInstance.get("/donation/donor-requests");
+};

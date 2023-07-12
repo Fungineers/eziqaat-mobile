@@ -4,23 +4,15 @@ import {
   createDrawerNavigator,
 } from "@react-navigation/drawer";
 import { StyleSheet, View } from "react-native";
-import {
-  Button,
-  Caption,
-  Paragraph,
-  Title,
-  useTheme,
-} from "react-native-paper";
+import { Avatar, Button, Caption, Title, useTheme } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import NotificationMenu from "../components/NotificationMenu";
-import ThreeDotMenu from "../components/ThreeDotMenu";
 import { useAuth } from "../context/auth.context";
-import Dashboard from "./Dashboard";
-import Donations from "./Donations";
-import ManageWorkers from "./ManageWorkers";
-import ProfileAndSettings from "./ProfileAndSettings";
+import Dashboard from "../screens/Dashboard";
+import ProfileAndSettings from "../screens/ProfileAndSettings";
+import DonationRequest from "../screens/DonationRequest";
+import DonorRequests from "../screens/DonorRequests";
 
-const MainDrawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator();
 
 const DrawerContent = (props) => {
   const auth = useAuth();
@@ -29,22 +21,11 @@ const DrawerContent = (props) => {
     <View style={{ backgroundColor: "#fff", flex: 1 }}>
       <DrawerContentScrollView {...props} style={{ flex: 1 }}>
         <View style={styles.userInfoSection}>
-          {/* <Avatar.Image
-            source={{
-              uri: "https://pbs.twimg.com/profile_images/952545910990495744/b59hSXUd_400x400.jpg",
-            }}
-            size={50}
-          /> */}
-          <Title style={styles.title}>Daniyal Aamir</Title>
-          <Caption style={styles.caption}>Chairperson - Hussainabad</Caption>
-          <View style={styles.row}>
-            <View style={styles.section}>
-              <Paragraph style={[styles.paragraph, styles.caption]}>
-                16
-              </Paragraph>
-              <Caption style={styles.caption}>Workers</Caption>
-            </View>
-          </View>
+          <Avatar.Text label={auth.data.user?.firstName?.charAt(0)} />
+          <Title style={styles.title}>
+            {auth.data.user?.firstName} {auth.data.user?.lastName}
+          </Title>
+          <Caption style={styles.caption}>{auth.data.user?.role}</Caption>
         </View>
         <View style={styles.drawerContent}>
           <DrawerItemList {...props} />
@@ -96,10 +77,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const Main = () => {
+const DonorDrawer = () => {
   const theme = useTheme();
   return (
-    <MainDrawer.Navigator
+    <Drawer.Navigator
       drawerContent={DrawerContent}
       screenOptions={{
         headerShadowVisible: false,
@@ -108,52 +89,51 @@ const Main = () => {
         },
       }}
     >
-      <MainDrawer.Screen
+      <Drawer.Screen
         name="dashboard"
         options={{
           title: "Dashboard",
-          headerRight: NotificationMenu,
+          // headerRight: NotificationMenu,
           drawerIcon: (props) => (
             <MaterialCommunityIcons {...props} name="view-dashboard-outline" />
           ),
         }}
         component={Dashboard}
       />
-      <MainDrawer.Screen
-        name="worker-management"
+      <Drawer.Screen
+        name="donation-request"
         options={{
-          title: "Manage Workers",
-          headerRight: ThreeDotMenu,
+          title: "Request Donation",
           drawerIcon: (props) => (
             <MaterialCommunityIcons
               {...props}
-              name="account-cowboy-hat-outline"
+              name="arrow-up-bold-hexagon-outline"
             />
           ),
         }}
-        component={ManageWorkers}
+        component={DonationRequest}
       />
-      <MainDrawer.Screen
-        name="donations"
+      <Drawer.Screen
+        name="requests"
         options={{
-          title: "Donations",
+          title: "Your requests",
           drawerIcon: (props) => (
-            <MaterialCommunityIcons {...props} name="cash" />
+            <MaterialCommunityIcons {...props} name="format-list-text" />
           ),
         }}
-        component={Donations}
+        component={DonorRequests}
       />
-      <MainDrawer.Screen
-        name="visualization-and-insights"
+      <Drawer.Screen
+        name="donation-history"
         options={{
-          title: "Visualization & Insights",
+          title: "Donation History",
           drawerIcon: (props) => (
-            <MaterialCommunityIcons {...props} name="chart-bell-curve" />
+            <MaterialCommunityIcons {...props} name="hand-coin-outline" />
           ),
         }}
-        component={() => <></>}
+        component={DonorRequests}
       />
-      <MainDrawer.Screen
+      <Drawer.Screen
         name="profile-and-settings"
         options={{
           title: "Profile & Settings",
@@ -166,8 +146,8 @@ const Main = () => {
         }}
         component={ProfileAndSettings}
       />
-    </MainDrawer.Navigator>
+    </Drawer.Navigator>
   );
 };
 
-export default Main;
+export default DonorDrawer;
