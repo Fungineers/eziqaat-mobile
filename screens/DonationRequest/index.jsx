@@ -1,16 +1,16 @@
+import { useEffect } from "react";
 import { ScrollView, View } from "react-native";
-import StringInput from "../../components/StringInput";
-import useRequestDonation from "../../hooks/useRequestDonation";
+import { Button } from "react-native-paper";
 import DropdownInput from "../../components/DropdownInput";
 import Note from "../../components/Note";
-import { Button } from "react-native-paper";
-import { useEffect } from "react";
+import StringInput from "../../components/StringInput";
+import useRequestDonation from "../../hooks/useRequestDonation";
+import { useIsFocused, useNavigation } from "@react-navigation/core";
 
-const DonationRequest = ({ navigation }) => {
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {});
-    return unsubscribe;
-  }, [navigation]);
+const DonationRequest = ({}) => {
+  const navigation = useNavigation();
+
+  useIsFocused();
 
   const { disabled, error, loading, form, areaOptions } = useRequestDonation();
 

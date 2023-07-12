@@ -11,6 +11,7 @@ import Dashboard from "../screens/Dashboard";
 import ProfileAndSettings from "../screens/ProfileAndSettings";
 import DonationRequest from "../screens/DonationRequest";
 import DonorRequests from "../screens/DonorRequests";
+import DonorDashboard from "../screens/DonorDashboard";
 
 const Drawer = createDrawerNavigator();
 
@@ -98,7 +99,7 @@ const DonorDrawer = () => {
             <MaterialCommunityIcons {...props} name="view-dashboard-outline" />
           ),
         }}
-        component={Dashboard}
+        component={DonorDashboard}
       />
       <Drawer.Screen
         name="donation-request"

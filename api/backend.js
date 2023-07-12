@@ -101,3 +101,7 @@ export const donorDonationRequest = async ({ areaId, amount, address }) => {
 export const getDonorRequests = async () => {
   return await apiInstance.get("/donation/donor-requests");
 };
+
+export const getDonorStats = async () => {
+  return await apiInstance.get("/donor/stats");
+};

@@ -7,8 +7,6 @@ import Main from "../screens/Main";
 import ResetPassword from "../screens/ResetPassword";
 import Signup from "../screens/Signup";
 import DonorDrawer from "./DonorDrawer";
-import { useNavigation } from "@react-navigation/core";
-import { useEffect } from "react";
 
 const Stack = createNativeStackNavigator();
 
