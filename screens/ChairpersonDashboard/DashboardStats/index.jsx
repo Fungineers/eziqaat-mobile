@@ -113,7 +113,7 @@ const DashboardStats = () => {
               />
               <StatItem
                 icon="clock-outline"
-                label="Requests"
+                label="In Progress"
                 description={areaStats.data.requestCount}
               />
             </View>
@@ -174,7 +174,7 @@ const DashboardStats = () => {
               />
               <StatItem
                 icon="clock-outline"
-                label="Requests"
+                label="In Progress"
                 description={areaDailyStats.data.requestCount}
               />
             </View>

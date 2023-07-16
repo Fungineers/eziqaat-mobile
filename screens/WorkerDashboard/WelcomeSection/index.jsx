@@ -27,7 +27,7 @@ const WelcomeSection = () => {
             {auth.data.user?.firstName} {auth.data.user?.lastName}
           </Text>
           <Text variant="bodySmall" style={{ color: theme.colors.secondary }}>
-            Donor
+            Worker - {auth.data.user?.area?.areaName || "(Unassigned)"}
           </Text>
         </View>
       </View>

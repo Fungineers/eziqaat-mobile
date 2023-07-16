@@ -51,21 +51,25 @@ const DashboardExplore = () => {
           imgSrc={require("../../../assets/teamwork.png")}
           title="Manage workers"
           description="View and contact your workers, manage their activity, and create new"
+          path="worker-management"
         />
         <ExploreItem
           imgSrc={require("../../../assets/collection.png")}
           title="Donations"
           description="View donations with status, add pending donations"
+          path="donations"
         />
         <ExploreItem
           imgSrc={require("../../../assets/bar-chart.png")}
           title="Visualizations & Statistics"
           description="View graphical and statistical outlook of the progress in your area"
+          path="visualization-and-insights"
         />
         <ExploreItem
           imgSrc={require("../../../assets/settings.png")}
           title="Account & Settings"
           description="View and update account settings"
+          path="profile-and-settings"
         />
       </View>
     </View>

@@ -11,6 +11,7 @@ import DonationRequest from "../screens/DonationRequest";
 import DonorDashboard from "../screens/DonorDashboard";
 import DonorRequests from "../screens/DonorRequests";
 import ProfileAndSettings from "../screens/ProfileAndSettings";
+import WorkerDashboard from "../screens/WorkerDashboard";
 
 const Drawer = createDrawerNavigator();
 
@@ -99,37 +100,34 @@ const WorkerDrawer = () => {
             <MaterialCommunityIcons {...props} name="view-dashboard-outline" />
           ),
         }}
-        component={DonorDashboard}
+        component={WorkerDashboard}
       />
       <Drawer.Screen
-        name="donation-request"
+        name="worker-pending"
         options={{
-          title: "Request Donation",
+          title: "Pending",
           drawerIcon: (props) => (
-            <MaterialCommunityIcons
-              {...props}
-              name="arrow-up-bold-hexagon-outline"
-            />
-          ),
-        }}
-        component={DonationRequest}
-      />
-      <Drawer.Screen
-        name="requests"
-        options={{
-          title: "Your requests",
-          drawerIcon: (props) => (
-            <MaterialCommunityIcons {...props} name="format-list-text" />
+            <MaterialCommunityIcons {...props} name="clock-outline" />
           ),
         }}
         component={DonorRequests}
       />
       <Drawer.Screen
-        name="donation-history"
+        name="worker-in-progress"
         options={{
-          title: "Donation History",
+          title: "In Progress",
           drawerIcon: (props) => (
-            <MaterialCommunityIcons {...props} name="hand-coin-outline" />
+            <MaterialCommunityIcons {...props} name="progress-check" />
+          ),
+        }}
+        component={DonorRequests}
+      />
+      <Drawer.Screen
+        name="worker-collected"
+        options={{
+          title: "Your Collections",
+          drawerIcon: (props) => (
+            <MaterialCommunityIcons {...props} name="check-circle-outline" />
           ),
         }}
         component={DonorRequests}

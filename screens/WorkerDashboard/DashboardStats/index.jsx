@@ -8,8 +8,8 @@ import {
   useTheme,
 } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import useDonorStats from "../../../hooks/useDonorStats";
 import Loading from "../../../components/Loading";
+import useWorkerStats from "../../../hooks/useWorkerStats";
 
 const StatItem = ({ icon, label, description }) => {
   const theme = useTheme();
@@ -55,7 +55,7 @@ const StatItem = ({ icon, label, description }) => {
 
 const DashboardStats = () => {
   const theme = useTheme();
-  const donorStats = useDonorStats();
+  const worker = useWorkerStats();
 
   return (
     <View>
@@ -76,7 +76,7 @@ const DashboardStats = () => {
         }}
       >
         <TouchableRipple onPress={() => {}}>
-          {donorStats.loading ? (
+          {worker.loading ? (
             <View
               style={{
                 flexDirection: "row",
@@ -89,7 +89,7 @@ const DashboardStats = () => {
             >
               <Loading />
             </View>
-          ) : !donorStats.error && donorStats.data ? (
+          ) : !worker.error && worker.data ? (
             <View
               style={{
                 flexDirection: "row",
@@ -101,18 +101,23 @@ const DashboardStats = () => {
             >
               <StatItem
                 icon="plus-circle-multiple"
-                label="Amount Raised"
-                description={`${donorStats.data.totalCashFlow} PKR`}
+                label="Amount collected"
+                description={`${worker.data.totalCashFlow} PKR`}
               />
               <StatItem
                 icon="counter"
                 label="Collections"
-                description={donorStats.data.collectionCount}
+                description={worker.data.collectionCount}
               />
               <StatItem
                 icon="clock-outline"
-                label="Requests"
-                description={donorStats.data.requestCount}
+                label="Pending"
+                description={worker.data.pending}
+              />
+              <StatItem
+                icon="progress-clock"
+                label="In Progress"
+                description={worker.data.inProgress}
               />
             </View>
           ) : (

@@ -48,22 +48,22 @@ const DashboardExplore = () => {
       </Text>
       <View style={{ flexDirection: "column", gap: 16 }}>
         <ExploreItem
-          path="donation-request"
-          imgSrc={require("../../../assets/request.png")}
-          title="Request Donation"
-          description="If you want our worker visit at your doorstep and collect donation from you, please submit a request here"
+          path="worker-pending"
+          imgSrc={require("../../../assets/pending.png")}
+          title="Donations Pending"
+          description="View and accept pending donation requests from donors or made on their behalf by the chairperson"
         />
         <ExploreItem
-          path="requests"
-          imgSrc={require("../../../assets/track.png")}
-          title="Track Your Requests"
-          description="Get the real-time status of your unfulfilled requests, and cancel anytime"
+          path="worker-in-progress"
+          imgSrc={require("../../../assets/progress.png")}
+          title="In Progress"
+          description="Manage the in progress requests which you have accepted to collect"
         />
         <ExploreItem
-          path="donation-history"
-          imgSrc={require("../../../assets/history.png")}
-          title="View Donation History"
-          description="View details of all your past donations"
+          path="worker-collected"
+          imgSrc={require("../../../assets/collection.png")}
+          title="Your Collections"
+          description="View details of all your past collections"
         />
         <ExploreItem
           path="profile-and-settings"

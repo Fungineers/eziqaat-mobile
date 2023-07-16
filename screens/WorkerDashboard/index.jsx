@@ -3,7 +3,7 @@ import WelcomeSection from "./WelcomeSection";
 import DashboardStats from "./DashboardStats";
 import DashboardExplore from "./DashboardExplore";
 
-const ChairpersonDashboard = () => {
+const WorkerDashboard = () => {
   return (
     <ScrollView contentContainerStyle={{ padding: 16 }}>
       <View style={{ flexDirection: "column", gap: 16 }}>
@@ -15,4 +15,4 @@ const ChairpersonDashboard = () => {
   );
 };
 
-export default ChairpersonDashboard;
+export default WorkerDashboard;

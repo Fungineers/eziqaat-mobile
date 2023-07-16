@@ -106,6 +106,10 @@ export const getDonorStats = async () => {
   return await apiInstance.get("/donor/stats");
 };
 
+export const getWorkerStats = async () => {
+  return await apiInstance.get("/worker/stats");
+};
+
 export const getAreaStats = async () => {
   return await apiInstance.get("/area/stats");
 };
@@ -128,4 +132,12 @@ export const getDonationInfo = async ({ donationId }) => {
 
 export const approvePendingDonation = async ({ donationId }) => {
   return await apiInstance.patch(`/donation/approve/${donationId}`);
+};
+
+export const getAreaPendingDonations = async (s = "") => {
+  return await apiInstance.get("/area/pending-donations", { params: { s } });
+};
+
+export const getAreaPendingStats = async () => {
+  return await apiInstance.get("/area/pending-stats");
 };
