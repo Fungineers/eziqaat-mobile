@@ -8,9 +8,11 @@ import {
   useTheme,
 } from "react-native-paper";
 import InfoItem from "./InfoItem";
+import { useNavigation } from "@react-navigation/core";
 
 const Item = ({ request }) => {
   const theme = useTheme();
+  const navigation = useNavigation();
 
   return (
     <Surface
@@ -19,7 +21,14 @@ const Item = ({ request }) => {
         overflow: "hidden",
       }}
     >
-      <TouchableRipple onPress={() => {}} style={{ padding: 16 }}>
+      <TouchableRipple
+        onPress={() => {
+          navigation.navigate("chairperson-donation-details", {
+            donationId: request.id,
+          });
+        }}
+        style={{ padding: 16 }}
+      >
         <View style={{ flexDirection: "column", gap: 16 }}>
           <View
             style={{
@@ -47,6 +56,16 @@ const Item = ({ request }) => {
               description={`${request.firstName} ${request.lastName}`}
             />
             <InfoItem
+              icon="phone-outline"
+              label="Phone"
+              description={request.phone}
+            />
+            <InfoItem
+              icon="card-outline"
+              label="CNIC"
+              description={request.cnic}
+            />
+            <InfoItem
               icon="map-marker-outline"
               label="Address"
               description={request.address}
@@ -54,10 +73,12 @@ const Item = ({ request }) => {
             <InfoItem
               icon="cash-multiple"
               label="Amount"
-              description={request.amount}
+              description={`PKR ${Intl.NumberFormat("en-US").format(
+                request.amount
+              )}`}
             />
             <InfoItem
-              icon="clock"
+              icon="clock-outline"
               label="Requested at"
               description={`${moment(new Date(request.requestedAt)).format(
                 "LLL"

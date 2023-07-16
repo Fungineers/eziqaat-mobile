@@ -121,3 +121,11 @@ export const getAreaRequestedDonations = async (s = "") => {
 export const getAreaRequestStats = async () => {
   return await apiInstance.get("/area/request-stats");
 };
+
+export const getDonationInfo = async ({ donationId }) => {
+  return await apiInstance.get(`/donation/${donationId}`);
+};
+
+export const approvePendingDonation = async ({ donationId }) => {
+  return await apiInstance.patch(`/donation/approve/${donationId}`);
+};

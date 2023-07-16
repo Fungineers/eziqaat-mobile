@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Loading from "../components/Loading";
 import { CHAIRPERSON, DONOR, WORKER } from "../constants/roles";
 import { useAuth } from "../context/auth.context";
+import ChairpersonDonationDetails from "../screens/ChairpersonDonationDetails";
 import Login from "../screens/Login";
 import ResetPassword from "../screens/ResetPassword";
 import Signup from "../screens/Signup";
@@ -9,7 +10,6 @@ import WorkerDetails from "../screens/WorkerDetails";
 import ChairpersonDrawer from "./ChairpersonDrawer";
 import DonorDrawer from "./DonorDrawer";
 import WorkerDrawer from "./WorkerDrawer";
-import { StackActions } from "@react-navigation/core";
 
 const Stack = createNativeStackNavigator();
 
@@ -70,6 +70,15 @@ const Navigator = () => {
           }}
           name="chairperson-worker-details"
           component={WorkerDetails}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            title: "Donation Info",
+            headerTitle: "Donation Info",
+          }}
+          name="chairperson-donation-details"
+          component={ChairpersonDonationDetails}
         />
       </Stack.Navigator>
     );
