@@ -1,20 +1,15 @@
-import { useEffect } from "react";
+import { useNavigation } from "@react-navigation/core";
 import { ScrollView, View } from "react-native";
 import { Button } from "react-native-paper";
 import DropdownInput from "../../components/DropdownInput";
 import Note from "../../components/Note";
 import StringInput from "../../components/StringInput";
 import useRequestDonation from "../../hooks/useRequestDonation";
-import { useIsFocused, useNavigation } from "@react-navigation/core";
 
-const DonationRequest = ({}) => {
+const DonationRequest = () => {
   const navigation = useNavigation();
 
-  useIsFocused();
-
   const { disabled, error, loading, form, areaOptions } = useRequestDonation();
-
-  console.log(form.values);
 
   return (
     <ScrollView contentContainerStyle={{ padding: 16 }}>

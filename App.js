@@ -15,7 +15,14 @@ const App = () => {
         <AuthProvider>
           <AreasProvider>
             <PaperProvider theme={theme}>
-              <NavigationContainer theme={theme}>
+              <NavigationContainer
+                theme={{
+                  colors: {
+                    ...theme.colors,
+                    card: theme.colors.background,
+                  },
+                }}
+              >
                 <Navigator />
               </NavigationContainer>
             </PaperProvider>

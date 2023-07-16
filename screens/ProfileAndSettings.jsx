@@ -105,7 +105,10 @@ const EditPhone = () => {
           loading={settings.loading}
           icon="check"
           onPress={settings.phoneForm.handleSubmit}
-          disabled={settings.phoneForm.values.phone === settings.currentPhone}
+          disabled={
+            settings.phoneForm.values.phone === settings.currentPhone ||
+            settings.loading
+          }
         >
           Save Changes
         </Button>
@@ -143,7 +146,10 @@ const EditEmail = () => {
           loading={settings.loading}
           icon="check"
           onPress={settings.emailForm.handleSubmit}
-          disabled={settings.emailForm.values.email === settings.currentEmail}
+          disabled={
+            settings.emailForm.values.email === settings.currentEmail ||
+            settings.loading
+          }
         >
           Save Changes
         </Button>

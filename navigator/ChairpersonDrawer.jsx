@@ -6,12 +6,12 @@ import {
 import { StyleSheet, View } from "react-native";
 import { Avatar, Button, Caption, Title, useTheme } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import ThreeDotMenu from "../components/ThreeDotMenu";
 import { useAuth } from "../context/auth.context";
-import Dashboard from "../screens/Dashboard";
+import ChairpersonDashboard from "../screens/ChairpersonDashboard";
+import Donations from "../screens/Donations";
+import ManageWorkers from "../screens/ManageWorkers";
 import ProfileAndSettings from "../screens/ProfileAndSettings";
-import DonationRequest from "../screens/DonationRequest";
-import DonorRequests from "../screens/DonorRequests";
-import DonorDashboard from "../screens/DonorDashboard";
 
 const Drawer = createDrawerNavigator();
 
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const DonorDrawer = () => {
+const ChairpersonDrawer = () => {
   const theme = useTheme();
   return (
     <Drawer.Navigator
@@ -100,40 +100,41 @@ const DonorDrawer = () => {
             <MaterialCommunityIcons {...props} name="view-dashboard-outline" />
           ),
         }}
-        component={DonorDashboard}
+        component={ChairpersonDashboard}
       />
       <Drawer.Screen
-        name="donation-request"
+        name="worker-management"
         options={{
-          title: "Request Donation",
+          title: "Manage Workers",
+          headerRight: ThreeDotMenu,
           drawerIcon: (props) => (
             <MaterialCommunityIcons
               {...props}
-              name="arrow-up-bold-hexagon-outline"
+              name="account-cowboy-hat-outline"
             />
           ),
         }}
-        component={DonationRequest}
+        component={ManageWorkers}
       />
       <Drawer.Screen
-        name="requests"
+        name="donations"
         options={{
-          title: "Your requests",
+          title: "Donations",
           drawerIcon: (props) => (
-            <MaterialCommunityIcons {...props} name="format-list-text" />
+            <MaterialCommunityIcons {...props} name="cash" />
           ),
         }}
-        component={DonorRequests}
+        component={Donations}
       />
       <Drawer.Screen
-        name="donation-history"
+        name="visualization-and-insights"
         options={{
-          title: "Donation History",
+          title: "Visualization & Insights",
           drawerIcon: (props) => (
-            <MaterialCommunityIcons {...props} name="hand-coin-outline" />
+            <MaterialCommunityIcons {...props} name="chart-bell-curve" />
           ),
         }}
-        component={DonorRequests}
+        component={() => <></>}
       />
       <Drawer.Screen
         name="profile-and-settings"
@@ -152,4 +153,4 @@ const DonorDrawer = () => {
   );
 };
 
-export default DonorDrawer;
+export default ChairpersonDrawer;

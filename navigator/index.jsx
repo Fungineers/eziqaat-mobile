@@ -3,10 +3,13 @@ import Loading from "../components/Loading";
 import { CHAIRPERSON, DONOR, WORKER } from "../constants/roles";
 import { useAuth } from "../context/auth.context";
 import Login from "../screens/Login";
-import Main from "../screens/Main";
 import ResetPassword from "../screens/ResetPassword";
 import Signup from "../screens/Signup";
+import WorkerDetails from "../screens/WorkerDetails";
+import ChairpersonDrawer from "./ChairpersonDrawer";
 import DonorDrawer from "./DonorDrawer";
+import WorkerDrawer from "./WorkerDrawer";
+import { StackActions } from "@react-navigation/core";
 
 const Stack = createNativeStackNavigator();
 
@@ -47,7 +50,7 @@ const Navigator = () => {
         initialRouteName="worker-drawer"
         screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen name="worker-drawer" component={Main} />
+        <Stack.Screen name="worker-drawer" component={WorkerDrawer} />
       </Stack.Navigator>
     );
   }
@@ -56,9 +59,18 @@ const Navigator = () => {
     return (
       <Stack.Navigator
         initialRouteName="chairperson-drawer"
-        screenOptions={{ headerShown: false }}
+        screenOptions={{ headerShown: false, headerShadowVisible: false }}
       >
-        <Stack.Screen name="chairperson-drawer" component={Main} />
+        <Stack.Screen name="chairperson-drawer" component={ChairpersonDrawer} />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            title: "Worker Details",
+            headerTitle: "Worker Details",
+          }}
+          name="chairperson-worker-details"
+          component={WorkerDetails}
+        />
       </Stack.Navigator>
     );
   }

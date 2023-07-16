@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const apiInstance = axios.create({
-  baseURL: "http://192.168.0.102:3001",
+  baseURL: "http://192.168.0.105:3001",
 });
 
 apiInstance.interceptors.request.use(async (request) => {
@@ -74,8 +74,8 @@ export const createWorker = async ({
   });
 };
 
-export const getWorkers = async () => {
-  return await apiInstance.get("/worker");
+export const getWorkers = async (s = "") => {
+  return await apiInstance.get(`/worker`, { params: { s } });
 };
 
 export const getWorkerById = async (id) => {
@@ -104,4 +104,20 @@ export const getDonorRequests = async () => {
 
 export const getDonorStats = async () => {
   return await apiInstance.get("/donor/stats");
+};
+
+export const getAreaStats = async () => {
+  return await apiInstance.get("/area/stats");
+};
+
+export const getAreaDailyStats = async () => {
+  return await apiInstance.get("/area/daily-stats");
+};
+
+export const getAreaRequestedDonations = async (s = "") => {
+  return await apiInstance.get("/area/requested-donations", { params: { s } });
+};
+
+export const getAreaRequestStats = async () => {
+  return await apiInstance.get("/area/request-stats");
 };

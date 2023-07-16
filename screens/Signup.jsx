@@ -69,6 +69,7 @@ const Signup = ({ navigation }) => {
           mode="contained"
           style={{ width: "100%" }}
           loading={signup.loading}
+          disabled={signup.loading}
           icon="account-plus"
           onPress={signup.form.handleSubmit}
         >

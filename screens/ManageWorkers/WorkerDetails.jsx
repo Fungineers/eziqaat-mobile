@@ -76,6 +76,7 @@ const WorkerDetails = ({ worker }) => {
       >
         <Button
           loading={workerDetails.loading}
+          disabled={workerDetails.loading}
           icon="phone"
           mode="contained-tonal"
           onPress={() => {
@@ -92,7 +93,7 @@ const WorkerDetails = ({ worker }) => {
           onPress={() => {
             Linking.openURL(`mailto:${workerDetails.data?.email}`);
           }}
-          disabled
+          disabled={workerDetails.loading}
           style={{ flex: 1 }}
         >
           Email

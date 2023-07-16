@@ -33,6 +33,7 @@ const Login = ({ navigation }) => {
           mode="contained"
           style={{ width: "100%" }}
           loading={login.loading}
+          disabled={login.loading}
           icon="login"
           onPress={login.form.handleSubmit}
         >

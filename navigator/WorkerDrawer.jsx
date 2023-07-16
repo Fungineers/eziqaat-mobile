@@ -7,11 +7,10 @@ import { StyleSheet, View } from "react-native";
 import { Avatar, Button, Caption, Title, useTheme } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useAuth } from "../context/auth.context";
-import Dashboard from "../screens/Dashboard";
-import ProfileAndSettings from "../screens/ProfileAndSettings";
 import DonationRequest from "../screens/DonationRequest";
-import DonorRequests from "../screens/DonorRequests";
 import DonorDashboard from "../screens/DonorDashboard";
+import DonorRequests from "../screens/DonorRequests";
+import ProfileAndSettings from "../screens/ProfileAndSettings";
 
 const Drawer = createDrawerNavigator();
 
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const DonorDrawer = () => {
+const WorkerDrawer = () => {
   const theme = useTheme();
   return (
     <Drawer.Navigator
@@ -152,4 +151,4 @@ const DonorDrawer = () => {
   );
 };
 
-export default DonorDrawer;
+export default WorkerDrawer;

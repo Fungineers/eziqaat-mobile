@@ -1,6 +1,8 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import PendingDonationsChairperson from "./PendingDonationsChairperson";
+import { StackActions, TabActions } from "@react-navigation/core";
+import RequestedDonationsChairperson from "./RequestedDonationsChairperson";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -15,11 +17,23 @@ const Donations = ({ navigation }) => {
         },
         tabBarAndroidRipple: { borderless: true },
       }}
+      screenListeners={({ navigation }) => ({
+        blur: () => {
+          const state = navigation.getState();
+
+          state.routes.forEach((route, tabIndex) => {
+            console.log("LOg");
+            if (state?.index !== tabIndex && route.state?.index > 0) {
+              navigation.dispatch(StackActions.popToTop());
+            }
+          });
+        },
+      })}
     >
       <Tab.Screen
         name="requested-donations"
         options={{ title: "Requested" }}
-        component={PendingDonationsChairperson}
+        component={RequestedDonationsChairperson}
       />
       <Tab.Screen
         name="pending-donations"
