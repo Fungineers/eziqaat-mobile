@@ -7,9 +7,9 @@ import { StyleSheet, View } from "react-native";
 import { Avatar, Button, Caption, Title, useTheme } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useAuth } from "../context/auth.context";
-import DonationRequest from "../screens/DonationRequest";
-import DonorDashboard from "../screens/DonorDashboard";
-import DonorRequests from "../screens/DonorRequests";
+import AcceptedDonationsWorker from "../screens/AcceptedDonationsWorker";
+import CollectedDonationsWorker from "../screens/CollectedDonationsWorker";
+import PendingDonationsWorker from "../screens/PendingDonationsWorker";
 import ProfileAndSettings from "../screens/ProfileAndSettings";
 import WorkerDashboard from "../screens/WorkerDashboard";
 
@@ -105,12 +105,12 @@ const WorkerDrawer = () => {
       <Drawer.Screen
         name="worker-pending"
         options={{
-          title: "Pending",
+          title: "Pending Donations",
           drawerIcon: (props) => (
             <MaterialCommunityIcons {...props} name="clock-outline" />
           ),
         }}
-        component={DonorRequests}
+        component={PendingDonationsWorker}
       />
       <Drawer.Screen
         name="worker-in-progress"
@@ -120,7 +120,7 @@ const WorkerDrawer = () => {
             <MaterialCommunityIcons {...props} name="progress-check" />
           ),
         }}
-        component={DonorRequests}
+        component={AcceptedDonationsWorker}
       />
       <Drawer.Screen
         name="worker-collected"
@@ -130,7 +130,7 @@ const WorkerDrawer = () => {
             <MaterialCommunityIcons {...props} name="check-circle-outline" />
           ),
         }}
-        component={DonorRequests}
+        component={CollectedDonationsWorker}
       />
       <Drawer.Screen
         name="profile-and-settings"

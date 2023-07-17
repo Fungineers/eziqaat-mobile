@@ -23,7 +23,7 @@ const Item = ({ request }) => {
     >
       <TouchableRipple
         onPress={() => {
-          navigation.navigate("chairperson-donation-details", {
+          navigation.navigate("worker-donation-details", {
             donationId: request.id,
           });
         }}

@@ -9,6 +9,8 @@ const useDonationInfo = (donationId) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [approving, setApproving] = useState(false);
+  const [accepting, setAccepting] = useState(false);
+  const [collecting, setCollecting] = useState(false);
 
   const fetch = () => {
     setLoading(true);
@@ -45,6 +47,42 @@ const useDonationInfo = (donationId) => {
       });
   };
 
+  const accept = () => {
+    setAccepting(true);
+    api
+      .acceptPendingDonation({ donationId })
+      .then((res) => {
+        const { message } = res.data;
+        snackbar.show({ message });
+        fetch();
+      })
+      .catch((err) => {
+        const message = err?.response?.data?.message || "Something went wrong";
+        snackbar.show({ message });
+      })
+      .finally(() => {
+        setAccepting(false);
+      });
+  };
+
+  const collect = () => {
+    setCollecting(true);
+    api
+      .collectAcceptedDonation({ donationId })
+      .then((res) => {
+        const { message } = res.data;
+        snackbar.show({ message });
+        fetch();
+      })
+      .catch((err) => {
+        const message = err?.response?.data?.message || "Something went wrong";
+        snackbar.show({ message });
+      })
+      .finally(() => {
+        setCollecting(false);
+      });
+  };
+
   return {
     fetch,
     error,
@@ -52,6 +90,10 @@ const useDonationInfo = (donationId) => {
     loading,
     approve,
     approving,
+    accept,
+    accepting,
+    collect,
+    collecting,
   };
 };
 

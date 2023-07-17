@@ -77,13 +77,6 @@ const Item = ({ request }) => {
                 request.amount
               )}`}
             />
-            <InfoItem
-              icon="clock-outline"
-              label="Requested at"
-              description={`${moment(new Date(request.requestedAt)).format(
-                "LLL"
-              )} (${moment(new Date(request.requestedAt)).fromNow()})`}
-            />
           </View>
         </View>
       </TouchableRipple>

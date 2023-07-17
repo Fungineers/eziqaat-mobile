@@ -10,6 +10,8 @@ import WorkerDetails from "../screens/WorkerDetails";
 import ChairpersonDrawer from "./ChairpersonDrawer";
 import DonorDrawer from "./DonorDrawer";
 import WorkerDrawer from "./WorkerDrawer";
+import WorkerDonationDetails from "../screens/WorkerDonationDetails";
+import NewCollection from "../screens/NewCollection";
 
 const Stack = createNativeStackNavigator();
 
@@ -51,6 +53,26 @@ const Navigator = () => {
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="worker-drawer" component={WorkerDrawer} />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerShadowVisible: false,
+            headerTitle: "Donation Info",
+            title: "Donation Info",
+          }}
+          name="worker-donation-details"
+          component={WorkerDonationDetails}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerShadowVisible: false,
+            headerTitle: "Add New Collection",
+            title: "Add New Collection",
+          }}
+          name="worker-add-new-collection"
+          component={NewCollection}
+        />
       </Stack.Navigator>
     );
   }
