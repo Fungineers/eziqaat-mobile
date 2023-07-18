@@ -13,6 +13,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import StringInput from "../components/StringInput";
 import { useAuth } from "../context/auth.context";
 import useSettings from "../hooks/useSettings";
+import upperSnakeCaseToSentenceCase from "../utils/upperSnakeCaseToSentenceCase";
 
 const ItemRow = ({ children, icon, editHandler }) => {
   const theme = useTheme();
@@ -246,7 +247,7 @@ const ProfileAndSettings = () => {
         <Item title="CNIC Number" value={cnic} />
       </ItemRow>
       <ItemRow icon="information-outline">
-        <Item title="Role" value={role} />
+        <Item title="Role" value={upperSnakeCaseToSentenceCase(role)} />
       </ItemRow>
       <Text variant="titleMedium">Account</Text>
       <ItemRow

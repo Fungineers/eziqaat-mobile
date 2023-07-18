@@ -104,7 +104,10 @@ const DashboardStats = () => {
               <StatItem
                 icon="plus-circle-multiple"
                 label="Amount Raised"
-                description={`${areaStats.data.totalCashFlow} PKR`}
+                description={`${Intl.NumberFormat("en-US", {
+                  notation: "compact",
+                  maximumFractionDigits: 1,
+                }).format(areaStats.data.totalCashFlow)}  PKR`}
               />
               <StatItem
                 icon="counter"
@@ -165,7 +168,10 @@ const DashboardStats = () => {
               <StatItem
                 icon="plus-circle-multiple"
                 label="Amount Raised"
-                description={`${areaDailyStats.data.totalCashFlow} PKR`}
+                description={`${Intl.NumberFormat("en-US", {
+                  notation: "compact",
+                  maximumFractionDigits: 1,
+                }).format(areaDailyStats.data.totalCashFlow)}  PKR`}
               />
               <StatItem
                 icon="counter"

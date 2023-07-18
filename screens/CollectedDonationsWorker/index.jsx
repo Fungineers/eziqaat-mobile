@@ -5,6 +5,7 @@ import { FAB, Searchbar } from "react-native-paper";
 import Loading from "../../components/Loading";
 import useWorkerCollectedDonations from "../../hooks/useWorkerCollectedDonations";
 import Item from "./Item";
+import NotFound from "../../components/NotFound";
 
 const CollectedDonationsWorker = () => {
   const navigation = useNavigation();
@@ -51,11 +52,14 @@ const CollectedDonationsWorker = () => {
         {workerCollectedDonations.collected.loading ? (
           <Loading />
         ) : !workerCollectedDonations.collected.error &&
-          !!workerCollectedDonations.collected.data ? (
+          !!workerCollectedDonations.collected.data &&
+          workerCollectedDonations.collected.data?.length ? (
           workerCollectedDonations.collected.data.map((request) => {
             return <Item key={request.id} request={request} />;
           })
-        ) : null}
+        ) : (
+          <NotFound />
+        )}
       </ScrollView>
       <FAB
         style={{ position: "absolute", right: 15, bottom: 15 }}

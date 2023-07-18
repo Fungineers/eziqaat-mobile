@@ -102,16 +102,19 @@ const DashboardStats = () => {
               <StatItem
                 icon="plus-circle-multiple"
                 label="Amount Raised"
-                description={`${donorStats.data.totalCashFlow} PKR`}
+                description={`${Intl.NumberFormat("en-US", {
+                  notation: "compact",
+                  maximumFractionDigits: 1,
+                }).format(donorStats.data.totalCashFlow)}  PKR`}
               />
               <StatItem
                 icon="counter"
-                label="Collections"
+                label="Completed"
                 description={donorStats.data.collectionCount}
               />
               <StatItem
                 icon="clock-outline"
-                label="Requests"
+                label="In Progress"
                 description={donorStats.data.requestCount}
               />
             </View>

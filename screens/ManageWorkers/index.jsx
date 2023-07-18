@@ -8,6 +8,7 @@ import useWorkers from "../../hooks/useWorkers";
 import CreateWorker from "./CreateWorker";
 import WorkerItem from "./WorkerItem";
 import { useEffect } from "react";
+import NotFound from "../../components/NotFound";
 
 const ManageWorkers = ({ navigation }) => {
   const theme = useTheme();
@@ -49,10 +50,12 @@ const ManageWorkers = ({ navigation }) => {
         >
           {workers.loading ? (
             <Loading />
-          ) : (
+          ) : workers.data?.length ? (
             workers.data.map((worker) => (
               <WorkerItem key={worker.id} worker={worker} />
             ))
+          ) : (
+            <NotFound />
           )}
         </ScrollView>
         <FAB

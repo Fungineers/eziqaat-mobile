@@ -4,7 +4,7 @@ let theme = DefaultTheme;
 
 theme = {
   ...DefaultTheme,
-  roundness: 1,
+  roundness: 2,
   // colors: {
   //   ...DefaultTheme.colors,
   //   primary: "#102770",

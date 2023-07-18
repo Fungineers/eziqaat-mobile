@@ -3,6 +3,7 @@ import Note from "../../components/Note";
 import useSearchDonor from "../../hooks/useSearchDonor";
 import InfoItem from "./InfoItem";
 import { useState } from "react";
+import DonationForm from "./DonationForm";
 
 const Registered = () => {
   const theme = useTheme();
@@ -17,19 +18,17 @@ const Registered = () => {
         </Text>
       ) : (
         <>
-          <Note text="Search and select the donor by phone, CNIC, or email to proceed" />
+          <Note text="Search and select the specific donor by phone, CNIC, or email to proceed" />
           <Text variant="titleMedium" style={{ color: theme.colors.secondary }}>
             Search Donor
           </Text>
+          <Searchbar
+            placeholder="Phone/CNIC/E-mail"
+            value={searchDonor.search}
+            loading={searchDonor.searching}
+            onChangeText={searchDonor.setSearch}
+          />
         </>
-      )}
-      {!selected && (
-        <Searchbar
-          placeholder="Phone/CNIC/E-mail"
-          value={searchDonor.search}
-          loading={searchDonor.searching}
-          onChangeText={searchDonor.setSearch}
-        />
       )}
       {!!searchDonor.result ? (
         <>
@@ -65,20 +64,20 @@ const Registered = () => {
               Select
             </Button>
           ) : (
-            <Button
-              mode="elevated"
-              icon="arrow-u-left-top"
-              onPress={() => {
-                setSelected(null);
-              }}
-            >
-              Cancel
-            </Button>
+            <>
+              <Button
+                mode="elevated"
+                icon="arrow-u-left-top"
+                onPress={() => {
+                  setSelected(null);
+                }}
+              >
+                Cancel
+              </Button>
+            </>
           )}
           <Divider />
-          <Text variant="titleMedium" style={{ color: theme.colors.secondary }}>
-            Donation Info
-          </Text>
+          {!!selected && <DonationForm selected={selected} />}
         </>
       ) : (
         <>

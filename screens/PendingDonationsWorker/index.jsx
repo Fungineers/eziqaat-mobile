@@ -5,6 +5,7 @@ import { Searchbar } from "react-native-paper";
 import Loading from "../../components/Loading";
 import useAreaPendingDonations from "../../hooks/useAreaPendingDonations";
 import Item from "./Item";
+import NotFound from "../../components/NotFound";
 
 const PendingDonationsWorker = () => {
   const navigation = useNavigation();
@@ -51,11 +52,14 @@ const PendingDonationsWorker = () => {
         {areaPendingDonations.pending.loading ? (
           <Loading />
         ) : !areaPendingDonations.pending.error &&
-          !!areaPendingDonations.pending.data ? (
+          !!areaPendingDonations.pending.data &&
+          areaPendingDonations.pending.data?.length ? (
           areaPendingDonations.pending.data.map((request) => {
             return <Item key={request.id} request={request} />;
           })
-        ) : null}
+        ) : (
+          <NotFound />
+        )}
       </ScrollView>
     </View>
   );

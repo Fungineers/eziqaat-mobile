@@ -102,9 +102,10 @@ const DashboardStats = () => {
               <StatItem
                 icon="plus-circle-multiple"
                 label="Amount collected"
-                description={`${Intl.NumberFormat("en-US").format(
-                  worker.data.totalCashFlow
-                )} PKR`}
+                description={`${Intl.NumberFormat("en-US", {
+                  notation: "compact",
+                  maximumFractionDigits: 1,
+                }).format(worker.data.totalCashFlow)}  PKR`}
               />
               <StatItem
                 icon="counter"

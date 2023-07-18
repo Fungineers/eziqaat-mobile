@@ -37,6 +37,7 @@ const useRequestDonation = () => {
         .donorDonationRequest(values)
         .then((res) => {
           const { message } = res.data;
+          navigation.goBack();
           snackbar.show({ message });
           resetForm();
         })

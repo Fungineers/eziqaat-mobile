@@ -7,6 +7,7 @@ import Loading from "../../components/Loading";
 import upperSnakeCaseToSentenceCase from "../../utils/upperSnakeCaseToSentenceCase";
 import { Button, Divider, Text } from "react-native-paper";
 import moment from "moment/moment";
+import Note from "../../components/Note";
 
 const WorkerDonationDetails = () => {
   const route = useRoute();
@@ -42,6 +43,7 @@ const WorkerDonationDetails = () => {
             description={upperSnakeCaseToSentenceCase(donationInfo.data.status)}
           />
           <Text variant="titleMedium">Timeline</Text>
+
           {!!donationInfo.data.requestedAt && (
             <InfoItem
               icon="calendar-plus"
@@ -53,7 +55,8 @@ const WorkerDonationDetails = () => {
               ).fromNow()})`}
             />
           )}
-          {!!donationInfo.data.approvedAt && (
+
+          {!!donationInfo.data.requestedAt && (
             <InfoItem
               icon="calendar"
               label="Approved"
@@ -64,38 +67,81 @@ const WorkerDonationDetails = () => {
               ).fromNow()})`}
             />
           )}
-          {!donationInfo.data.approvedAt && !donationInfo.data.requestedAt && (
-            <InfoItem
-              icon="calendar-plus-outline"
-              label="Created"
-              description={`${moment(
-                new Date(donationInfo.data.createdAt)
-              ).format("LLL")} (${moment(
-                new Date(donationInfo.data.createdAt)
-              ).fromNow()})`}
-            />
-          )}
-          {donationInfo.data.acceptedAt && (
-            <InfoItem
-              icon="calendar-clock-outline"
-              label="Accepted"
-              description={`${moment(
-                new Date(donationInfo.data.acceptedAt)
-              ).format("LLL")} (${moment(
-                new Date(donationInfo.data.acceptedAt)
-              ).fromNow()})`}
-            />
-          )}
-          {!!donationInfo.data.collectedAt && (
-            <InfoItem
-              icon="calendar-check-outline"
-              label="Collected"
-              description={`${moment(
-                new Date(donationInfo.data.collectedAt)
-              ).format("LLL")} (${moment(
-                new Date(donationInfo.data.collectedAt)
-              ).fromNow()})`}
-            />
+          {!donationInfo.data.approvedAt && !donationInfo.data.requestedAt ? (
+            !!donationInfo.data.collectedAt && !donationInfo.data.acceptedAt ? (
+              <>
+                <Note text="This collection was directly done by the worker" />
+                <InfoItem
+                  icon="calendar-plus"
+                  label="Collected"
+                  description={`${moment(
+                    new Date(donationInfo.data.collectedAt)
+                  ).format("LLL")} (${moment(
+                    new Date(donationInfo.data.collectedAt)
+                  ).fromNow()})`}
+                />
+              </>
+            ) : (
+              <>
+                <Note text="This record was directly created by the chairperson" />
+                <InfoItem
+                  icon="clock-plus"
+                  label="Created"
+                  description={`${moment(
+                    new Date(donationInfo.data.createdAt)
+                  ).format("LLL")} (${moment(
+                    new Date(donationInfo.data.createdAt)
+                  ).fromNow()})`}
+                />
+                {!!donationInfo.data.acceptedAt && (
+                  <InfoItem
+                    icon="calendar-clock-outline"
+                    label="Accepted"
+                    description={`${moment(
+                      new Date(donationInfo.data.acceptedAt)
+                    ).format("LLL")} (${moment(
+                      new Date(donationInfo.data.acceptedAt)
+                    ).fromNow()})`}
+                  />
+                )}
+                {!!donationInfo.data.collectedAt && (
+                  <InfoItem
+                    icon="calendar-check-outline"
+                    label="Collected"
+                    description={`${moment(
+                      new Date(donationInfo.data.collectedAt)
+                    ).format("LLL")} (${moment(
+                      new Date(donationInfo.data.collectedAt)
+                    ).fromNow()})`}
+                  />
+                )}
+              </>
+            )
+          ) : (
+            <>
+              {!!donationInfo.data.acceptedAt && (
+                <InfoItem
+                  icon="calendar-clock-outline"
+                  label="Accepted"
+                  description={`${moment(
+                    new Date(donationInfo.data.acceptedAt)
+                  ).format("LLL")} (${moment(
+                    new Date(donationInfo.data.acceptedAt)
+                  ).fromNow()})`}
+                />
+              )}
+              {!!donationInfo.data.collectedAt && (
+                <InfoItem
+                  icon="calendar-check-outline"
+                  label="Collected"
+                  description={`${moment(
+                    new Date(donationInfo.data.collectedAt)
+                  ).format("LLL")} (${moment(
+                    new Date(donationInfo.data.collectedAt)
+                  ).fromNow()})`}
+                />
+              )}
+            </>
           )}
           <Divider />
           <Text variant="titleMedium">Donation Details</Text>

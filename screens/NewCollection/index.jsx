@@ -3,6 +3,7 @@ import { ScrollView, View } from "react-native";
 import { Button, Divider, Text, useTheme } from "react-native-paper";
 import Note from "../../components/Note";
 import Registered from "./Registered";
+import Unregistered from "./Unregistered";
 
 const NewCollection = () => {
   const theme = useTheme();
@@ -10,7 +11,7 @@ const NewCollection = () => {
   return (
     <ScrollView contentContainerStyle={{ padding: 16 }}>
       <View style={{ flexDirection: "column", gap: 16 }}>
-        <Note text="This feature allows to directly report collection from those donors who get caught up on the way, and haven't made a request, or are unregistered." />
+        <Note text="This feature allows to directly report collection from those donors who get caught up on the way, and haven't made a request, or are currently unregistered." />
         <Text variant="bodyLarge" style={{ color: theme.colors.secondary }}>
           Is the donor already registered?
         </Text>
@@ -56,16 +57,7 @@ const NewCollection = () => {
             >
               Cancel
             </Button>
-            {isRegistered === true ? (
-              <Registered />
-            ) : (
-              <Text
-                variant="bodyLarge"
-                style={{ color: theme.colors.secondary }}
-              >
-                Register Donor
-              </Text>
-            )}
+            {isRegistered === true ? <Registered /> : <Unregistered />}
           </>
         )}
       </View>

@@ -163,3 +163,11 @@ export const collectAcceptedDonation = async ({ donationId }) => {
 export const searchUniqueDonor = async (s = "") => {
   return await apiInstance.get(`/donor/search-unique?s=${s}`);
 };
+
+export const createNewCollectionRegistered = async ({
+  donorId,
+  amount,
+  address,
+}) => {
+  return await apiInstance.post("/donation/new", { donorId, amount, address });
+};

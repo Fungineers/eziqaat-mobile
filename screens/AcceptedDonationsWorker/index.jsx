@@ -5,6 +5,7 @@ import { Searchbar } from "react-native-paper";
 import Loading from "../../components/Loading";
 import useWorkerAcceptedDonations from "../../hooks/useWorkerAcceptedDonations";
 import Item from "./Item";
+import NotFound from "../../components/NotFound";
 
 const AcceptedDonationsWorker = () => {
   const navigation = useNavigation();
@@ -51,11 +52,14 @@ const AcceptedDonationsWorker = () => {
         {workerAcceptedDonations.accepted.loading ? (
           <Loading />
         ) : !workerAcceptedDonations.accepted.error &&
-          !!workerAcceptedDonations.accepted.data ? (
+          !!workerAcceptedDonations.accepted.data &&
+          workerAcceptedDonations.accepted.data?.length ? (
           workerAcceptedDonations.accepted.data.map((request) => {
             return <Item key={request.id} request={request} />;
           })
-        ) : null}
+        ) : (
+          <NotFound />
+        )}
       </ScrollView>
     </View>
   );
