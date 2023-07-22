@@ -49,7 +49,10 @@ const useSignup = ({ successCallback = () => {} }) => {
         })
         .catch((err) => {
           console.log(err);
-          setError(err?.response?.data?.message || "Something went wrong");
+          const message =
+            err?.response?.data?.message || "Something went wrong";
+          setError(message);
+          snackbar.show("error", message);
         })
         .finally(() => {
           setLoading(false);

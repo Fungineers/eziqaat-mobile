@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { View } from "react-native";
 import { Appbar, Button, useTheme } from "react-native-paper";
+import Note from "../components/Note";
 import StringInput from "../components/StringInput";
 import useResetPassword from "../hooks/useResetPassword";
-import Note from "../components/Note";
 
 const ResetPassword = ({ navigation }) => {
   const resetPassword = useResetPassword();
@@ -37,6 +37,7 @@ const ResetPassword = ({ navigation }) => {
             mode="contained"
             style={{ width: "100%" }}
             loading={resetPassword.loading}
+            disabled={resetPassword.loading}
             icon="lock-reset"
             onPress={resetPassword.form.handleSubmit}
           >

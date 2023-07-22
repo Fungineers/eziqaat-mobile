@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const apiInstance = axios.create({
-  baseURL: "http://192.168.0.106:3001",
+  baseURL: "http://192.168.0.103:3001",
 });
 
 apiInstance.interceptors.request.use(async (request) => {
@@ -13,8 +13,8 @@ apiInstance.interceptors.request.use(async (request) => {
   return request;
 }, console.log);
 
-export const signin = async ({ credential, password }) => {
-  return await apiInstance.post("/auth/signin", {
+export const login = async ({ credential, password }) => {
+  return await apiInstance.post("/auth/login", {
     credential,
     password,
     platform: "MOBILE",
@@ -53,7 +53,7 @@ export const changePassword = async ({ currentPassword, newPassword }) => {
 };
 
 export const resetPassword = async ({ credential }) => {
-  return await apiInstance.patch("/user/password", {
+  return await apiInstance.put("/user/password/reset", {
     credential,
   });
 };
@@ -74,8 +74,8 @@ export const createWorker = async ({
   });
 };
 
-export const getWorkers = async () => {
-  return await apiInstance.get("/worker");
+export const getWorkers = async (s = "") => {
+  return await apiInstance.get(`/worker`, { params: { s } });
 };
 
 export const getWorkerById = async (id) => {
@@ -84,4 +84,90 @@ export const getWorkerById = async (id) => {
 
 export const getChairpersonDashboard = async () => {
   return await apiInstance.get("/dashboard");
+};
+
+export const getAreas = async () => {
+  return await apiInstance.get("/area");
+};
+
+export const donorDonationRequest = async ({ areaId, amount, address }) => {
+  return await apiInstance.post("/donation/request", {
+    areaId,
+    amount,
+    address,
+  });
+};
+
+export const getDonorRequests = async () => {
+  return await apiInstance.get("/donation/donor-requests");
+};
+
+export const getDonorStats = async () => {
+  return await apiInstance.get("/donor/stats");
+};
+
+export const getWorkerStats = async () => {
+  return await apiInstance.get("/worker/stats");
+};
+
+export const getAreaStats = async () => {
+  return await apiInstance.get("/area/stats");
+};
+
+export const getAreaDailyStats = async () => {
+  return await apiInstance.get("/area/daily-stats");
+};
+
+export const getAreaRequestedDonations = async (s = "") => {
+  return await apiInstance.get("/area/requested-donations", { params: { s } });
+};
+
+export const getAreaRequestStats = async () => {
+  return await apiInstance.get("/area/request-stats");
+};
+
+export const getDonationInfo = async ({ donationId }) => {
+  return await apiInstance.get(`/donation/${donationId}`);
+};
+
+export const approvePendingDonation = async ({ donationId }) => {
+  return await apiInstance.patch(`/donation/approve/${donationId}`);
+};
+
+export const getAreaPendingDonations = async (s = "") => {
+  return await apiInstance.get("/area/pending-donations", { params: { s } });
+};
+
+export const getAreaPendingStats = async () => {
+  return await apiInstance.get("/area/pending-stats");
+};
+
+export const acceptPendingDonation = async ({ donationId }) => {
+  return await apiInstance.patch(`/donation/accept/${donationId}`);
+};
+
+export const getWorkerAcceptedDonations = async (s = "") => {
+  return await apiInstance.get("/worker/accepted-donations", { params: { s } });
+};
+
+export const getWorkerCollectedDonations = async (s = "") => {
+  return await apiInstance.get("/worker/collected-donations", {
+    params: { s },
+  });
+};
+
+export const collectAcceptedDonation = async ({ donationId }) => {
+  return await apiInstance.patch(`/donation/collect/${donationId}`);
+};
+
+export const searchUniqueDonor = async (s = "") => {
+  return await apiInstance.get(`/donor/search-unique?s=${s}`);
+};
+
+export const createNewCollectionRegistered = async ({
+  donorId,
+  amount,
+  address,
+}) => {
+  return await apiInstance.post("/donation/new", { donorId, amount, address });
 };

@@ -1,6 +1,7 @@
+import { StackActions } from "@react-navigation/core";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import PendingDonationsChairperson from "./PendingDonationsChairperson";
+import RequestedDonationsChairperson from "./RequestedDonationsChairperson";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -19,7 +20,7 @@ const Donations = ({ navigation }) => {
       <Tab.Screen
         name="requested-donations"
         options={{ title: "Requested" }}
-        component={PendingDonationsChairperson}
+        component={RequestedDonationsChairperson}
       />
       <Tab.Screen
         name="pending-donations"

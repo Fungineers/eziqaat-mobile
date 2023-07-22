@@ -50,7 +50,12 @@ const useSignup = () => {
         })
         .catch((err) => {
           console.log(err);
-          setError(err?.response?.data?.message || "Something went wrong");
+          const message =
+            err?.response?.data?.message || "Something went wrong";
+          setError(message);
+          snackbar.show({
+            message,
+          });
         })
         .finally(() => {
           setLoading(false);

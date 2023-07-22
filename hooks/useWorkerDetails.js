@@ -13,7 +13,7 @@ const useWorkerDetails = ({ id }) => {
       .then((res) => {
         console.log(res.data);
         const { workerDetails } = res.data;
-        setData(workerDetails);
+        setData(workerDetails.data);
       })
       .catch((err) => {
         setError(err?.response?.data?.message || "Something went wrong");

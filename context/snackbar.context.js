@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { Snackbar } from "react-native-paper";
 
 const SnackbarContext = createContext({
   message: null,
@@ -30,6 +31,15 @@ export const SnackbarProvider = ({ children }) => {
       }}
     >
       {children}
+      <Snackbar
+        visible={message}
+        onDismiss={hide}
+        icon="check"
+        action={{ label: "Okay", onPress: hide }}
+        style={{ zIndex: 100 }}
+      >
+        {message}
+      </Snackbar>
     </SnackbarContext.Provider>
   );
 };

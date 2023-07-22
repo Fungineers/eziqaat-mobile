@@ -12,13 +12,13 @@ import {
   useTheme,
 } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { useAuth } from "../context/auth.context";
-import Donations from "./Donations";
-import ProfileAndSettings from "./ProfileAndSettings";
-import Dashboard from "./Dashboard";
-import ManageWorkers from "./ManageWorkers";
 import NotificationMenu from "../components/NotificationMenu";
 import ThreeDotMenu from "../components/ThreeDotMenu";
+import { useAuth } from "../context/auth.context";
+import Dashboard from "./Dashboard";
+import Donations from "./Donations";
+import ManageWorkers from "./ManageWorkers";
+import ProfileAndSettings from "./ProfileAndSettings";
 
 const MainDrawer = createDrawerNavigator();
 
@@ -102,6 +102,7 @@ const Main = () => {
     <MainDrawer.Navigator
       drawerContent={DrawerContent}
       screenOptions={{
+        headerShadowVisible: false,
         headerBackgroundContainerStyle: {
           backgroundColor: theme.colors.surface,
         },

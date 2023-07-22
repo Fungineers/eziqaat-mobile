@@ -1,0 +1,5 @@
+export const CHAIRPERSON = "CHAIRPERSON";
+export const OFFICE_SECRETARY = "OFFICE_SECRETARY";
+export const GENERAL_SECRETARY = "GENERAL_SECRETARY";
+export const WORKER = "WORKER";
+export const DONOR = "DONOR";

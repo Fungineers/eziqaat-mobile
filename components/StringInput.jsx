@@ -9,6 +9,7 @@ const StringInput = ({
   placeholder = "",
   icon = "",
   value = "",
+  autoCapitalize,
   onChangeText = () => {},
   error = "",
   keyboardType = "default",
@@ -22,6 +23,7 @@ const StringInput = ({
         label={label}
         placeholder={placeholder}
         mode={mode}
+        autoCapitalize={autoCapitalize}
         keyboardType={keyboardType}
         style={{ width: "100%" }}
         left={

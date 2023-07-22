@@ -5,6 +5,23 @@ const useWorkers = () => {
   const [loading, setLoading] = useState(false);
   const [workers, setWorkers] = useState([]);
   const [error, setError] = useState(null);
+  const [searching, setSearching] = useState(false);
+
+  const search = (value) => {
+    setSearching(true);
+    api
+      .getWorkers(value)
+      .then((res) => {
+        const { workers } = res.data;
+        setWorkers(workers);
+      })
+      .catch((err) => {
+        setError(err?.response?.data?.message || "Something went wrong");
+      })
+      .finally(() => {
+        setSearching(false);
+      });
+  };
 
   const fetchWorkers = () => {
     setLoading(true);
@@ -22,12 +39,13 @@ const useWorkers = () => {
       });
   };
 
-  useEffect(fetchWorkers, []);
-
   return {
+    fetch: fetchWorkers,
     loading,
     data: workers,
     error,
+    search,
+    searching,
   };
 };
 

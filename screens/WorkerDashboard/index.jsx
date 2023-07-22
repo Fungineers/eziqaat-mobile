@@ -1,9 +1,9 @@
 import { ScrollView, View } from "react-native";
-import DashboardExplore from "../components/DashboardExplore";
-import DashboardStats from "../components/DashboardStats";
-import WelcomeSection from "../components/WelcomeSection";
+import WelcomeSection from "./WelcomeSection";
+import DashboardStats from "./DashboardStats";
+import DashboardExplore from "./DashboardExplore";
 
-const Dashboard = () => {
+const WorkerDashboard = () => {
   return (
     <ScrollView contentContainerStyle={{ padding: 16 }}>
       <View style={{ flexDirection: "column", gap: 16 }}>
@@ -15,4 +15,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default WorkerDashboard;

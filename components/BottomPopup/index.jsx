@@ -26,7 +26,7 @@ const BottomPopup = ({ title, shown, show, hide, children, icon }) => {
             style={{
               backgroundColor: "#fff",
               paddingTop: 16,
-              maxHeight: Dimensions.get("window").height - 128,
+              maxHeight: Dimensions.get("window").height - 64,
               borderTopLeftRadius: 16,
               borderTopRightRadius: 16,
               flexDirection: "column",
