@@ -11,6 +11,7 @@ import usePopup from "../../hooks/usePopup";
 import BottomPopup from "../../components/BottomPopup";
 import RequestDetails from "./RequestDetails";
 import InfoItem from "./InfoItem";
+import upperSnakeCaseToSentenceCase from "../../utils/upperSnakeCaseToSentenceCase";
 
 const RequestItem = ({ data }) => {
   const popup = usePopup();
@@ -61,12 +62,14 @@ const RequestItem = ({ data }) => {
               <InfoItem
                 icon="cash-multiple"
                 label="Amount"
-                description={data.amount}
+                description={`${Intl.NumberFormat("en-US").format(
+                  data.amount
+                )}  PKR`}
               />
               <InfoItem
                 icon="crosshairs-question"
                 label="Status"
-                description={data.status}
+                description={upperSnakeCaseToSentenceCase(data.status)}
               />
             </View>
           </View>
