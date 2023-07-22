@@ -1,17 +1,24 @@
 import { View } from "react-native";
-import { Appbar, Button, Text } from "react-native-paper";
+import { Appbar, Button, Divider, Text, useTheme } from "react-native-paper";
 import StringInput from "../components/StringInput";
+import Note from "../components/Note";
 import useLogin from "../hooks/useLogin";
 
 const Login = ({ navigation }) => {
   const login = useLogin();
+  const theme = useTheme();
 
   return (
     <View style={{ flex: 1, gap: 10, justifyContent: "center" }}>
       <Appbar.Header mode="center-aligned">
-        <Appbar.Content title="Log in" />
+        <Appbar.Content title="Log in" color={theme.colors.primary} />
       </Appbar.Header>
       <View style={{ padding: 20, gap: 10 }}>
+        <Note
+          text={
+            "Welcome!\n\nPlease log in to your account using either your email, phone, or CNIC that were provided while registration."
+          }
+        />
         <StringInput
           label="Credential"
           placeholder="E-mail/Phone/CNIC"
@@ -49,7 +56,7 @@ const Login = ({ navigation }) => {
         >
           Forgot Password?
         </Button>
-        <View style={{ borderBottomWidth: 1, borderColor: "#c4c4c4" }} />
+        <Divider style={{ height: 1 }} />
         <Text variant="bodyMedium" style={{ textAlign: "center" }}>
           Haven't made an account yet?
         </Text>

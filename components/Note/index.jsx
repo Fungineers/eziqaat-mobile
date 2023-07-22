@@ -5,7 +5,17 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 const Note = ({ text }) => {
   const theme = useTheme();
   return (
-    <Surface style={{ padding: 15, flexDirection: "row", gap: 10 }} mode="flat">
+    <Surface
+      style={{
+        padding: 15,
+        flexDirection: "row",
+        gap: 10,
+        borderRadius: 5,
+        borderWidth: 0.5,
+        borderColor: theme.colors.primary,
+      }}
+      mode="flat"
+    >
       <MaterialCommunityIcons
         name="information-outline"
         size={20}

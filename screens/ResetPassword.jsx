@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { View } from "react-native";
-import { Appbar, Button, useTheme } from "react-native-paper";
+import { Appbar, Button, Divider, useTheme } from "react-native-paper";
 import Note from "../components/Note";
 import StringInput from "../components/StringInput";
 import useResetPassword from "../hooks/useResetPassword";
@@ -19,11 +19,18 @@ const ResetPassword = ({ navigation }) => {
     <>
       <View style={{ flex: 1, justifyContent: "center" }}>
         <Appbar.Header mode="small">
-          <Appbar.BackAction onPress={navigation.goBack} />
-          <Appbar.Content title="Reset Password" />
+          <Appbar.BackAction
+            onPress={navigation.goBack}
+            color={theme.colors.primary}
+          />
+          <Appbar.Content title="Reset Password" color={theme.colors.primary} />
         </Appbar.Header>
         <View style={{ padding: 20, gap: 10 }}>
-          <Note text="Enter your account credential to reset your password. As you are done with it, you will receive the newly generated password through an SMS to the same phone number your account is registered with." />
+          <Note
+            text={
+              "Please Note:\n\n• You enter your account credential to reset your password. \n\n• You'll recieve an SMS to your phone number, with a new auto-generated password."
+            }
+          />
           <StringInput
             label="Credential"
             placeholder="E-mail/Phone/CNIC"

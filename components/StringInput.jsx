@@ -41,7 +41,7 @@ const StringInput = ({
                 setShown(!shown);
               }}
               icon={shown ? "eye-off" : "eye"}
-              iconColor={theme.colors.primary}
+              iconColor={!!error ? theme.colors.error : theme.colors.primary}
             />
           )
         }
@@ -51,7 +51,12 @@ const StringInput = ({
         error={!!error}
       />
       {error ? (
-        <HelperText type="error" visible={!!error}>
+        <HelperText
+          padding="none"
+          variant="bodySmall"
+          type="error"
+          visible={!!error}
+        >
           {error}
         </HelperText>
       ) : (
