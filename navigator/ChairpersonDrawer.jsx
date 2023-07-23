@@ -12,6 +12,7 @@ import ChairpersonDashboard from "../screens/ChairpersonDashboard";
 import Donations from "../screens/Donations";
 import ManageWorkers from "../screens/ManageWorkers";
 import ProfileAndSettings from "../screens/ProfileAndSettings";
+import Visualizations from "../screens/Visualizations";
 
 const Drawer = createDrawerNavigator();
 
@@ -106,7 +107,6 @@ const ChairpersonDrawer = () => {
         name="worker-management"
         options={{
           title: "Manage Workers",
-          headerRight: ThreeDotMenu,
           drawerIcon: (props) => (
             <MaterialCommunityIcons
               {...props}
@@ -134,7 +134,7 @@ const ChairpersonDrawer = () => {
             <MaterialCommunityIcons {...props} name="chart-bell-curve" />
           ),
         }}
-        component={() => <></>}
+        component={Visualizations}
       />
       <Drawer.Screen
         name="profile-and-settings"

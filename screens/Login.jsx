@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { Appbar, Button, Divider, Text, useTheme } from "react-native-paper";
-import StringInput from "../components/StringInput";
 import Note from "../components/Note";
+import StringInput from "../components/StringInput";
 import useLogin from "../hooks/useLogin";
 
 const Login = ({ navigation }) => {
@@ -12,6 +12,14 @@ const Login = ({ navigation }) => {
     <View style={{ flex: 1, gap: 10, justifyContent: "center" }}>
       <Appbar.Header mode="center-aligned">
         <Appbar.Content title="Log in" color={theme.colors.primary} />
+        <Appbar.Action
+          icon="help-circle-outline"
+          mode="contained-tonal"
+          color={theme.colors.primary}
+          onPress={() => {
+            navigation.navigate("onboarding");
+          }}
+        />
       </Appbar.Header>
       <View style={{ padding: 20, gap: 10 }}>
         <Note

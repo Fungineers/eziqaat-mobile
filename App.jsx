@@ -7,6 +7,7 @@ import { SnackbarProvider } from "./context/snackbar.context";
 import Navigator from "./navigator";
 import theme from "./theme";
 import { AreasProvider } from "./context/areas.context";
+import { StatusBar } from "react-native";
 
 const App = () => {
   return (
@@ -15,6 +16,10 @@ const App = () => {
         <AuthProvider>
           <AreasProvider>
             <PaperProvider theme={theme}>
+              <StatusBar
+                backgroundColor={theme.colors.background}
+                barStyle="dark-content"
+              />
               <NavigationContainer
                 theme={{
                   colors: {

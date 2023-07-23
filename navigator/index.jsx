@@ -12,11 +12,32 @@ import DonorDrawer from "./DonorDrawer";
 import WorkerDrawer from "./WorkerDrawer";
 import WorkerDonationDetails from "../screens/WorkerDonationDetails";
 import NewCollection from "../screens/NewCollection";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
+import GetStarted from "../screens/GetStarted";
 
 const Stack = createNativeStackNavigator();
 
 const Navigator = () => {
   const auth = useAuth();
+  const onboardedStorage = useAsyncStorage("onboarded");
+
+  const [onboarded, setOnboarded] = useState(false);
+
+  useEffect(() => {
+    const effect = async () => {
+      onboardedStorage
+        .getItem()
+        .then((value) => {
+          if (value) {
+            setOnboarded(true);
+          }
+        })
+        .catch(console.log);
+    };
+
+    effect();
+  }, [auth.data.signedIn]);
 
   if (auth.data.authenticating) {
     return <Loading />;
@@ -25,10 +46,11 @@ const Navigator = () => {
   if (!auth.data.signedIn) {
     return (
       <Stack.Navigator
-        initialRouteName="login"
+        initialRouteName={onboarded ? "login" : "onboarding"}
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="login" component={Login} />
+        <Stack.Screen name="onboarding" component={GetStarted} />
         <Stack.Screen name="signup" component={Signup} />
         <Stack.Screen name="reset-password" component={ResetPassword} />
       </Stack.Navigator>

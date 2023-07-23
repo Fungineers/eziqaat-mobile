@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as api from "../api/backend";
 
-const useWorkerDetails = ({ id }) => {
+const useWorkerDetails = (id) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -12,8 +12,8 @@ const useWorkerDetails = ({ id }) => {
       .getWorkerById(id)
       .then((res) => {
         console.log(res.data);
-        const { workerDetails } = res.data;
-        setData(workerDetails.data);
+        const { data } = res.data;
+        setData(data);
       })
       .catch((err) => {
         setError(err?.response?.data?.message || "Something went wrong");
@@ -23,9 +23,8 @@ const useWorkerDetails = ({ id }) => {
       });
   };
 
-  useEffect(fetchWorkerDetails, []);
-
   return {
+    fetch: fetchWorkerDetails,
     loading,
     data,
     error,
