@@ -15,6 +15,7 @@ import NewCollection from "../screens/NewCollection";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import GetStarted from "../screens/GetStarted";
+import DonorDonationDetails from "../screens/DonorDonationDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -61,9 +62,18 @@ const Navigator = () => {
     return (
       <Stack.Navigator
         initialRouteName="donor-drawer"
-        screenOptions={{ headerShown: false }}
+        screenOptions={{ headerShown: false, headerShadowVisible: false }}
       >
         <Stack.Screen name="donor-drawer" component={DonorDrawer} />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            title: "Donation Info",
+            headerTitle: "Donation Info",
+          }}
+          name="donor-donation-details"
+          component={DonorDonationDetails}
+        />
       </Stack.Navigator>
     );
   }

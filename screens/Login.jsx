@@ -31,6 +31,8 @@ const Login = ({ navigation }) => {
           label="Credential"
           placeholder="E-mail/Phone/CNIC"
           icon="account"
+          autoCapitalize={false}
+          keyboardType="email-address"
           value={login.form.values.credential}
           onChangeText={login.form.handleChange("credential")}
           error={login.form.errors.credential}

@@ -6,14 +6,14 @@ const InfoItem = ({ label, description, icon }) => {
   const theme = useTheme();
 
   return (
-    <View style={{ flexDirection: "row", gap: 8 }}>
+    <View style={{ flexDirection: "row", gap: 16 }}>
       <MaterialCommunityIcons
         name={icon}
-        size={16}
+        size={20}
         color={theme.colors.primary}
       />
       <Text
-        variant="bodySmall"
+        variant="bodyMedium"
         style={{
           color: theme.colors.secondary,
           overflow: "hidden",
@@ -23,7 +23,7 @@ const InfoItem = ({ label, description, icon }) => {
         {label}
       </Text>
       <Text
-        variant="bodySmall"
+        variant="bodyMedium"
         style={{ color: theme.colors.secondary, overflow: "hidden", flex: 1 }}
       >
         {description}

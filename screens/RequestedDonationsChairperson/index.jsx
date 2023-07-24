@@ -1,32 +1,37 @@
-import { useNavigation } from "@react-navigation/core";
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/core";
+import { useCallback, useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { Searchbar } from "react-native-paper";
+import DonationCard from "../../components/DonationCard";
 import Loading from "../../components/Loading";
 import useAreaRequestedDonations from "../../hooks/useAreaRequestedDonations";
-import Item from "./Item";
+import NotFound from "../../components/NotFound";
 
 const RequestedDonationsChairperson = () => {
-  const navigation = useNavigation();
-
   const areaRequestedDonations = useAreaRequestedDonations();
 
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    if (!search) {
-      areaRequestedDonations.requests.fetch();
-    } else {
-      const timer = setTimeout(() => {
-        areaRequestedDonations.requests.search(search);
-      }, 1000);
+  useFocusEffect(
+    useCallback(() => {
+      if (!search) {
+        areaRequestedDonations.fetch();
+      } else {
+        const timer = setTimeout(() => {
+          areaRequestedDonations.search(search);
+        }, 1000);
+        return () => {
+          clearTimeout(timer);
+        };
+      }
       return () => {
-        clearTimeout(timer);
+        areaRequestedDonations.reset();
       };
-    }
-  }, [search]);
+    }, [search])
+  );
 
   const onChangeSearch = (query) => setSearch(query);
+
   return (
     <View
       style={{
@@ -39,7 +44,7 @@ const RequestedDonationsChairperson = () => {
         onChangeText={onChangeSearch}
         value={search}
         style={{ borderRadius: 0 }}
-        loading={areaRequestedDonations.requests.searching}
+        loading={areaRequestedDonations.searching}
       />
       <ScrollView
         contentContainerStyle={{
@@ -48,14 +53,78 @@ const RequestedDonationsChairperson = () => {
           gap: 15,
         }}
       >
-        {areaRequestedDonations.requests.loading ? (
+        {areaRequestedDonations.loading ? (
           <Loading />
-        ) : !areaRequestedDonations.requests.error &&
-          !!areaRequestedDonations.requests.data ? (
-          areaRequestedDonations.requests.data.map((request) => {
-            return <Item key={request.id} request={request} />;
+        ) : !areaRequestedDonations.error &&
+          !!areaRequestedDonations.data?.length ? (
+          areaRequestedDonations.data.map((item) => {
+            return (
+              <DonationCard
+                key={item.id}
+                donationId={item.id}
+                path="chairperson-donation-details"
+                data={
+                  !item.donorId
+                    ? [
+                        {
+                          icon: "account-outline",
+                          label: "Ref Name.",
+                          description: `${item.refName}`,
+                        },
+                        {
+                          icon: "phone-outline",
+                          label: "Ref Phone.",
+                          description: item.refPhone,
+                        },
+                        {
+                          icon: "map-marker-outline",
+                          label: "Address",
+                          description: item.address,
+                        },
+                        {
+                          icon: "cash-multiple",
+                          label: "Amount",
+                          description: `PKR ${Intl.NumberFormat("en-US").format(
+                            item.amount
+                          )}`,
+                        },
+                      ]
+                    : [
+                        {
+                          icon: "account-outline",
+                          label: "Name",
+                          description: `${item.firstName} ${item.lastName}`,
+                        },
+                        {
+                          icon: "phone-outline",
+                          label: "Phone",
+                          description: item.phone,
+                        },
+                        {
+                          icon: "account-details-outline",
+                          label: "CNIC",
+                          description: item.cnic,
+                        },
+                        {
+                          icon: "map-marker-outline",
+                          label: "Address",
+                          description: item.address,
+                        },
+                        {
+                          icon: "cash-multiple",
+                          label: "Amount",
+                          description: `PKR ${Intl.NumberFormat("en-US").format(
+                            item.amount
+                          )}`,
+                        },
+                      ]
+                }
+              />
+            );
           })
-        ) : null}
+        ) : (
+          <NotFound />
+        )}
       </ScrollView>
     </View>
   );

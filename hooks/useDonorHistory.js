@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import * as api from "../api/backend";
 
-const useDonorRequests = () => {
+const useDonorHistory = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -9,7 +9,7 @@ const useDonorRequests = () => {
   const fetch = () => {
     setLoading(true);
     api
-      .getDonorRequests()
+      .getDonorHistory()
       .then((res) => {
         const { donations } = res.data;
         setData(donations);
@@ -33,4 +33,4 @@ const useDonorRequests = () => {
   };
 };
 
-export default useDonorRequests;
+export default useDonorHistory;

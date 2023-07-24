@@ -12,6 +12,7 @@ import ProfileAndSettings from "../screens/ProfileAndSettings";
 import DonationRequest from "../screens/DonationRequest";
 import DonorRequests from "../screens/DonorRequests";
 import DonorDashboard from "../screens/DonorDashboard";
+import DonorHistory from "../screens/DonorHistory";
 
 const Drawer = createDrawerNavigator();
 
@@ -133,7 +134,7 @@ const DonorDrawer = () => {
             <MaterialCommunityIcons {...props} name="hand-coin-outline" />
           ),
         }}
-        component={DonorRequests}
+        component={DonorHistory}
       />
       <Drawer.Screen
         name="profile-and-settings"

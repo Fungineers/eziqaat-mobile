@@ -9,7 +9,7 @@ import { Button, Divider, Text } from "react-native-paper";
 import moment from "moment/moment";
 import Note from "../../components/Note";
 
-const DonationDetails = () => {
+const DonorDonationDetails = () => {
   const route = useRoute();
 
   const { donationId } = route.params;
@@ -102,6 +102,11 @@ const DonationDetails = () => {
           <Divider />
           <Text variant="titleMedium">Donation Details</Text>
           <InfoItem
+            icon="select-place"
+            label="Area"
+            description={donationInfo.data.areaName}
+          />
+          <InfoItem
             icon="map-marker-outline"
             label="Address"
             description={donationInfo.data.address}
@@ -114,45 +119,6 @@ const DonationDetails = () => {
             )}`}
           />
           <Divider />
-          <Text variant="titleMedium">Donor Info</Text>
-          {!donationInfo.data.donorId ? (
-            <>
-              <Note text="This record was created by you, and is not associated with any donor account" />
-              <InfoItem
-                icon="account-outline"
-                label="Ref Name"
-                description={donationInfo.data.refName}
-              />
-              <InfoItem
-                icon="phone-outline"
-                label="Ref Phone"
-                description={donationInfo.data.refPhone}
-              />
-            </>
-          ) : (
-            <>
-              <InfoItem
-                icon="account-outline"
-                label="Name"
-                description={donationInfo.data.donorName}
-              />
-              <InfoItem
-                icon="phone-outline"
-                label="Phone"
-                description={donationInfo.data.donorPhone}
-              />
-              <InfoItem
-                icon="card-account-details-outline"
-                label="CNIC"
-                description={donationInfo.data.donorCnic}
-              />
-              <InfoItem
-                icon="email-outline"
-                label="E-mail"
-                description={donationInfo.data.donorEmail || "(Unset)"}
-              />
-            </>
-          )}
           {(donationInfo.data.status === "ACCEPTED" ||
             donationInfo.data.status === "COLLECTED") && (
             <>
@@ -209,7 +175,7 @@ const DonationDetails = () => {
             label="Status"
             description={upperSnakeCaseToSentenceCase(donationInfo.data.status)}
           />
-          {donationInfo.data.status === "REQUESTED" && (
+          {/* {donationInfo.data.status === "REQUESTED" && (
             <Button
               mode="contained"
               icon="check"
@@ -219,11 +185,11 @@ const DonationDetails = () => {
             >
               Approve
             </Button>
-          )}
+          )} */}
         </>
       ) : null}
     </ScrollView>
   );
 };
 
-export default DonationDetails;
+export default DonorDonationDetails;

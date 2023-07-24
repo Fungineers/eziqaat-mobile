@@ -10,7 +10,7 @@ import {
 import InfoItem from "./InfoItem";
 import { useNavigation } from "@react-navigation/core";
 
-const Item = ({ request }) => {
+const DonationCard = ({ donationId, path, data }) => {
   const theme = useTheme();
   const navigation = useNavigation();
 
@@ -23,8 +23,8 @@ const Item = ({ request }) => {
     >
       <TouchableRipple
         onPress={() => {
-          navigation.navigate("chairperson-donation-details", {
-            donationId: request.id,
+          navigation.navigate(path, {
+            donationId,
           });
         }}
         style={{ padding: 16 }}
@@ -45,38 +45,19 @@ const Item = ({ request }) => {
               TID
             </Text>
             <Text variant="titleSmall" style={{ color: theme.colors.primary }}>
-              {request.id}
+              {donationId}
             </Text>
           </View>
           <Divider />
           <View style={{ flexDirection: "column", gap: 4 }}>
-            <InfoItem
-              icon="account-outline"
-              label="Name"
-              description={`${request.firstName} ${request.lastName}`}
-            />
-            <InfoItem
-              icon="phone-outline"
-              label="Phone"
-              description={request.phone}
-            />
-            <InfoItem
-              icon="card-outline"
-              label="CNIC"
-              description={request.cnic}
-            />
-            <InfoItem
-              icon="map-marker-outline"
-              label="Address"
-              description={request.address}
-            />
-            <InfoItem
-              icon="cash-multiple"
-              label="Amount"
-              description={`PKR ${Intl.NumberFormat("en-US").format(
-                request.amount
-              )}`}
-            />
+            {data.map((item, idx) => (
+              <InfoItem
+                key={idx}
+                icon={item.icon}
+                label={item.label}
+                description={item.description}
+              />
+            ))}
           </View>
         </View>
       </TouchableRipple>
@@ -84,4 +65,4 @@ const Item = ({ request }) => {
   );
 };
 
-export default Item;
+export default DonationCard;

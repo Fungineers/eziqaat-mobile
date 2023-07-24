@@ -2,6 +2,8 @@ import { StackActions } from "@react-navigation/core";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import PendingDonationsChairperson from "./PendingDonationsChairperson";
 import RequestedDonationsChairperson from "./RequestedDonationsChairperson";
+import AcceptedDonationsChairperson from "./AcceptedDonationsChairperson";
+import CollectedDonationsChairperson from "./CollectedDonationsChairperson";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -30,12 +32,12 @@ const Donations = ({ navigation }) => {
       <Tab.Screen
         name="accepted-donations"
         options={{ title: "Accepted" }}
-        component={() => {}}
+        component={AcceptedDonationsChairperson}
       />
       <Tab.Screen
         name="collected-donations"
         options={{ title: "Collected" }}
-        component={() => {}}
+        component={CollectedDonationsChairperson}
       />
     </Tab.Navigator>
   );

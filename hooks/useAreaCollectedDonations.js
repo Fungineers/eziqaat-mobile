@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as api from "../api/backend";
 import { useSnackbar } from "../context/snackbar.context";
 
-const useAreaRequestedDonations = () => {
+const useAreaCollectedDonations = () => {
   const snackbar = useSnackbar();
 
   const [data, setData] = useState(null);
@@ -14,7 +14,7 @@ const useAreaRequestedDonations = () => {
     setLoading(true);
     setError(false);
     api
-      .getAreaRequestedDonations()
+      .getAreaCollectedDonations()
       .then((res) => {
         const { donations } = res.data;
         setData(donations);
@@ -32,7 +32,7 @@ const useAreaRequestedDonations = () => {
     setSearching(true);
     setError(false);
     api
-      .getAreaRequestedDonations(value)
+      .getAreaCollectedDonations(value)
       .then((res) => {
         const { donations } = res.data;
         setData(donations);
@@ -61,4 +61,4 @@ const useAreaRequestedDonations = () => {
   };
 };
 
-export default useAreaRequestedDonations;
+export default useAreaCollectedDonations;

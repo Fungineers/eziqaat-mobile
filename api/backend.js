@@ -102,6 +102,10 @@ export const getDonorRequests = async () => {
   return await apiInstance.get("/donation/donor-requests");
 };
 
+export const getDonorHistory = async () => {
+  return await apiInstance.get("/donation/donor-history");
+};
+
 export const getDonorStats = async () => {
   return await apiInstance.get("/donor/stats");
 };
@@ -138,6 +142,14 @@ export const getAreaPendingDonations = async (s = "") => {
   return await apiInstance.get("/area/pending-donations", { params: { s } });
 };
 
+export const getAreaAcceptedDonations = async (s = "") => {
+  return await apiInstance.get("/area/accepted-donations", { params: { s } });
+};
+
+export const getAreaCollectedDonations = async (s = "") => {
+  return await apiInstance.get("/area/collected-donations", { params: { s } });
+};
+
 export const getAreaPendingStats = async () => {
   return await apiInstance.get("/area/pending-stats");
 };
@@ -170,4 +182,18 @@ export const createNewCollectionRegistered = async ({
   address,
 }) => {
   return await apiInstance.post("/donation/new", { donorId, amount, address });
+};
+
+export const addPendingUnregistered = async ({
+  refName,
+  refPhone,
+  address,
+  amount,
+}) => {
+  return await apiInstance.post("/donation/unregistered", {
+    refName,
+    refPhone,
+    address,
+    amount,
+  });
 };

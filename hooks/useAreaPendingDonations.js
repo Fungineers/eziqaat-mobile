@@ -5,41 +5,19 @@ import { useSnackbar } from "../context/snackbar.context";
 const useAreaPendingDonations = () => {
   const snackbar = useSnackbar();
 
-  const [stats, setStats] = useState(null);
-  const [statsLoading, setStatsLoading] = useState(false);
-  const [statsError, setStatsError] = useState(null);
-
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [searching, setSearching] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchStats = () => {
-    setStatsLoading(true);
-    setStatsError(false);
-    api
-      .getAreaPendingStats()
-      .then((res) => {
-        const { stats } = res.data;
-        setStats(stats);
-      })
-      .catch((err) => {
-        const message = err?.response?.data?.message || "Something went wrong";
-        setStatsError(message);
-      })
-      .finally(() => {
-        setStatsLoading(false);
-      });
-  };
-
-  const fetchData = () => {
+  const fetch = () => {
     setLoading(true);
     setError(false);
     api
       .getAreaPendingDonations()
       .then((res) => {
-        const { pendingDonations } = res.data;
-        setData(pendingDonations);
+        const { donations } = res.data;
+        setData(donations);
       })
       .catch((err) => {
         const message = err?.response?.data?.message || "Something went wrong";
@@ -50,14 +28,14 @@ const useAreaPendingDonations = () => {
       });
   };
 
-  const searchData = (value) => {
+  const search = (value) => {
     setSearching(true);
     setError(false);
     api
-      .getAreaPendingDonations(value)
+      .getAreaCollectedDonations(value)
       .then((res) => {
-        const { pendingDonations } = res.data;
-        setData(pendingDonations);
+        const { donations } = res.data;
+        setData(donations);
       })
       .catch((err) => {
         const message = err?.response?.data?.message || "Something went wrong";
@@ -68,21 +46,18 @@ const useAreaPendingDonations = () => {
       });
   };
 
+  const reset = () => {
+    setData(null);
+  };
+
   return {
-    pending: {
-      fetch: fetchData,
-      search: searchData,
-      searching,
-      loading,
-      error,
-      data,
-    },
-    stats: {
-      fetch: fetchStats,
-      loading: statsLoading,
-      error: statsError,
-      data: stats,
-    },
+    fetch,
+    search,
+    reset,
+    searching,
+    loading,
+    error,
+    data,
   };
 };
 

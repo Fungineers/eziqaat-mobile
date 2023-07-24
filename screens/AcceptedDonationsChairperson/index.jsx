@@ -1,39 +1,35 @@
-import { useFocusEffect, useNavigation } from "@react-navigation/core";
+import { useFocusEffect } from "@react-navigation/core";
 import { useCallback, useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
-import { FAB, Searchbar } from "react-native-paper";
+import { Searchbar } from "react-native-paper";
 import DonationCard from "../../components/DonationCard";
 import Loading from "../../components/Loading";
-import useAreaPendingDonations from "../../hooks/useAreaPendingDonations";
-import BottomPopup from "../../components/BottomPopup";
+import useAreaAcceptedDonations from "../../hooks/useAreaAcceptedDonations";
 import NotFound from "../../components/NotFound";
-import usePopup from "../../hooks/usePopup";
-import AddPending from "../../components/AddPending";
 
-const PendingDonationsChairperson = () => {
-  const navigation = useNavigation();
-  const areaPendingDonations = useAreaPendingDonations();
-  const popup = usePopup();
+const AcceptedDonationsChairperson = () => {
+  const areaAcceptedDonations = useAreaAcceptedDonations();
 
   const [search, setSearch] = useState("");
 
   useFocusEffect(
     useCallback(() => {
       if (!search) {
-        areaPendingDonations.fetch();
+        areaAcceptedDonations.fetch();
       } else {
         const timer = setTimeout(() => {
-          areaPendingDonations.search(search);
+          areaAcceptedDonations.search(search);
         }, 1000);
         return () => {
           clearTimeout(timer);
         };
       }
       return () => {
-        areaPendingDonations.reset();
+        areaAcceptedDonations.reset();
       };
     }, [search])
   );
+
   const onChangeSearch = (query) => setSearch(query);
 
   return (
@@ -48,7 +44,7 @@ const PendingDonationsChairperson = () => {
         onChangeText={onChangeSearch}
         value={search}
         style={{ borderRadius: 0 }}
-        loading={areaPendingDonations.searching}
+        loading={areaAcceptedDonations.searching}
       />
       <ScrollView
         contentContainerStyle={{
@@ -57,11 +53,11 @@ const PendingDonationsChairperson = () => {
           gap: 15,
         }}
       >
-        {areaPendingDonations.loading ? (
+        {areaAcceptedDonations.loading ? (
           <Loading />
-        ) : !areaPendingDonations.error &&
-          !!areaPendingDonations.data?.length ? (
-          areaPendingDonations.data.map((item) => {
+        ) : !areaAcceptedDonations.error &&
+          !!areaAcceptedDonations.data?.length ? (
+          areaAcceptedDonations.data.map((item) => {
             return (
               <DonationCard
                 key={item.id}
@@ -130,16 +126,8 @@ const PendingDonationsChairperson = () => {
           <NotFound />
         )}
       </ScrollView>
-      <FAB
-        style={{ position: "absolute", right: 15, bottom: 15 }}
-        icon="plus"
-        onPress={popup.show}
-      />
-      <BottomPopup title="Add Pending Donation" icon="pencil-plus" {...popup}>
-        <AddPending />
-      </BottomPopup>
     </View>
   );
 };
 
-export default PendingDonationsChairperson;
+export default AcceptedDonationsChairperson;

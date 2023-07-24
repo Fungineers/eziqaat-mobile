@@ -61,7 +61,7 @@ const Item = ({ request }) => {
               description={request.phone}
             />
             <InfoItem
-              icon="card-outline"
+              icon="account-details-outline"
               label="CNIC"
               description={request.cnic}
             />
