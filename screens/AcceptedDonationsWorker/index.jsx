@@ -6,6 +6,7 @@ import Loading from "../../components/Loading";
 import useWorkerAcceptedDonations from "../../hooks/useWorkerAcceptedDonations";
 import Item from "./Item";
 import NotFound from "../../components/NotFound";
+import DonationCard from "../../components/DonationCard";
 
 const AcceptedDonationsWorker = () => {
   const navigation = useNavigation();
@@ -16,10 +17,10 @@ const AcceptedDonationsWorker = () => {
 
   useEffect(() => {
     if (!search) {
-      workerAcceptedDonations.accepted.fetch();
+      workerAcceptedDonations.fetch();
     } else {
       const timer = setTimeout(() => {
-        workerAcceptedDonations.accepted.search(search);
+        workerAcceptedDonations.search(search);
       }, 1000);
       return () => {
         clearTimeout(timer);
@@ -40,7 +41,7 @@ const AcceptedDonationsWorker = () => {
         onChangeText={onChangeSearch}
         value={search}
         style={{ borderRadius: 0 }}
-        loading={workerAcceptedDonations.accepted.searching}
+        loading={workerAcceptedDonations.searching}
       />
       <ScrollView
         contentContainerStyle={{
@@ -49,13 +50,75 @@ const AcceptedDonationsWorker = () => {
           gap: 15,
         }}
       >
-        {workerAcceptedDonations.accepted.loading ? (
+        {workerAcceptedDonations.loading ? (
           <Loading />
-        ) : !workerAcceptedDonations.accepted.error &&
-          !!workerAcceptedDonations.accepted.data &&
-          workerAcceptedDonations.accepted.data?.length ? (
-          workerAcceptedDonations.accepted.data.map((request) => {
-            return <Item key={request.id} request={request} />;
+        ) : !workerAcceptedDonations.error &&
+          !!workerAcceptedDonations.data &&
+          workerAcceptedDonations.data?.length ? (
+          workerAcceptedDonations.data.map((item) => {
+            return (
+              <DonationCard
+                key={item.id}
+                donationId={item.id}
+                path="worker-donation-details"
+                data={
+                  !item.donorId
+                    ? [
+                        {
+                          icon: "account-outline",
+                          label: "Ref Name.",
+                          description: `${item.refName}`,
+                        },
+                        {
+                          icon: "phone-outline",
+                          label: "Ref Phone.",
+                          description: item.refPhone,
+                        },
+                        {
+                          icon: "map-marker-outline",
+                          label: "Address",
+                          description: item.address,
+                        },
+                        {
+                          icon: "cash-multiple",
+                          label: "Amount",
+                          description: `PKR ${Intl.NumberFormat("en-US").format(
+                            item.amount
+                          )}`,
+                        },
+                      ]
+                    : [
+                        {
+                          icon: "account-outline",
+                          label: "Name",
+                          description: `${item.firstName} ${item.lastName}`,
+                        },
+                        {
+                          icon: "phone-outline",
+                          label: "Phone",
+                          description: item.phone,
+                        },
+                        {
+                          icon: "account-details-outline",
+                          label: "CNIC",
+                          description: item.cnic,
+                        },
+                        {
+                          icon: "map-marker-outline",
+                          label: "Address",
+                          description: item.address,
+                        },
+                        {
+                          icon: "cash-multiple",
+                          label: "Amount",
+                          description: `PKR ${Intl.NumberFormat("en-US").format(
+                            item.amount
+                          )}`,
+                        },
+                      ]
+                }
+              />
+            );
           })
         ) : (
           <NotFound />

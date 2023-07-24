@@ -3,7 +3,6 @@ import { ScrollView, View } from "react-native";
 import DonationCard from "../../components/DonationCard";
 import Loading from "../../components/Loading";
 import NotFound from "../../components/NotFound";
-import Note from "../../components/Note";
 import useDonorHistory from "../../hooks/useDonorHistory";
 import upperSnakeCaseToSentenceCase from "../../utils/upperSnakeCaseToSentenceCase";
 
@@ -17,7 +16,6 @@ const DonorHistory = () => {
   return (
     <ScrollView contentContainerStyle={{ padding: 16 }}>
       <View style={{ flexDirection: "column", gap: 16 }}>
-        <Note text="Every request that you submit, or any record added on your behalf that hasn't been collected yet, can be tracked here. You can use the unique tracking ID, and worker details for reference in case of any queries" />
         {donorHistory.loading ? (
           <Loading />
         ) : !donorHistory.error || donorHistory.data?.length ? (

@@ -6,6 +6,7 @@ import Loading from "../../components/Loading";
 import useWorkerCollectedDonations from "../../hooks/useWorkerCollectedDonations";
 import Item from "./Item";
 import NotFound from "../../components/NotFound";
+import DonationCard from "../../components/DonationCard";
 
 const CollectedDonationsWorker = () => {
   const navigation = useNavigation();
@@ -16,10 +17,10 @@ const CollectedDonationsWorker = () => {
 
   useEffect(() => {
     if (!search) {
-      workerCollectedDonations.collected.fetch();
+      workerCollectedDonations.fetch();
     } else {
       const timer = setTimeout(() => {
-        workerCollectedDonations.collected.search(search);
+        workerCollectedDonations.search(search);
       }, 1000);
       return () => {
         clearTimeout(timer);
@@ -40,7 +41,7 @@ const CollectedDonationsWorker = () => {
         onChangeText={onChangeSearch}
         value={search}
         style={{ borderRadius: 0 }}
-        loading={workerCollectedDonations.collected.searching}
+        loading={workerCollectedDonations.searching}
       />
       <ScrollView
         contentContainerStyle={{
@@ -49,13 +50,75 @@ const CollectedDonationsWorker = () => {
           gap: 15,
         }}
       >
-        {workerCollectedDonations.collected.loading ? (
+        {workerCollectedDonations.loading ? (
           <Loading />
-        ) : !workerCollectedDonations.collected.error &&
-          !!workerCollectedDonations.collected.data &&
-          workerCollectedDonations.collected.data?.length ? (
-          workerCollectedDonations.collected.data.map((request) => {
-            return <Item key={request.id} request={request} />;
+        ) : !workerCollectedDonations.error &&
+          !!workerCollectedDonations.data &&
+          workerCollectedDonations.data?.length ? (
+          workerCollectedDonations.data.map((item) => {
+            return (
+              <DonationCard
+                key={item.id}
+                donationId={item.id}
+                path="worker-donation-details"
+                data={
+                  !item.donorId
+                    ? [
+                        {
+                          icon: "account-outline",
+                          label: "Ref Name.",
+                          description: `${item.refName}`,
+                        },
+                        {
+                          icon: "phone-outline",
+                          label: "Ref Phone.",
+                          description: item.refPhone,
+                        },
+                        {
+                          icon: "map-marker-outline",
+                          label: "Address",
+                          description: item.address,
+                        },
+                        {
+                          icon: "cash-multiple",
+                          label: "Amount",
+                          description: `PKR ${Intl.NumberFormat("en-US").format(
+                            item.amount
+                          )}`,
+                        },
+                      ]
+                    : [
+                        {
+                          icon: "account-outline",
+                          label: "Name",
+                          description: `${item.firstName} ${item.lastName}`,
+                        },
+                        {
+                          icon: "phone-outline",
+                          label: "Phone",
+                          description: item.phone,
+                        },
+                        {
+                          icon: "account-details-outline",
+                          label: "CNIC",
+                          description: item.cnic,
+                        },
+                        {
+                          icon: "map-marker-outline",
+                          label: "Address",
+                          description: item.address,
+                        },
+                        {
+                          icon: "cash-multiple",
+                          label: "Amount",
+                          description: `PKR ${Intl.NumberFormat("en-US").format(
+                            item.amount
+                          )}`,
+                        },
+                      ]
+                }
+              />
+            );
           })
         ) : (
           <NotFound />

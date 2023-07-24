@@ -6,6 +6,7 @@ import Loading from "../../components/Loading";
 import useAreaPendingDonations from "../../hooks/useAreaPendingDonations";
 import Item from "./Item";
 import NotFound from "../../components/NotFound";
+import DonationCard from "../../components/DonationCard";
 
 const PendingDonationsWorker = () => {
   const navigation = useNavigation();
@@ -16,10 +17,10 @@ const PendingDonationsWorker = () => {
 
   useEffect(() => {
     if (!search) {
-      areaPendingDonations.pending.fetch();
+      areaPendingDonations.fetch();
     } else {
       const timer = setTimeout(() => {
-        areaPendingDonations.pending.search(search);
+        areaPendingDonations.search(search);
       }, 1000);
       return () => {
         clearTimeout(timer);
@@ -40,7 +41,7 @@ const PendingDonationsWorker = () => {
         onChangeText={onChangeSearch}
         value={search}
         style={{ borderRadius: 0 }}
-        loading={areaPendingDonations.pending.searching}
+        loading={areaPendingDonations.searching}
       />
       <ScrollView
         contentContainerStyle={{
@@ -49,13 +50,75 @@ const PendingDonationsWorker = () => {
           gap: 15,
         }}
       >
-        {areaPendingDonations.pending.loading ? (
+        {areaPendingDonations.loading ? (
           <Loading />
-        ) : !areaPendingDonations.pending.error &&
-          !!areaPendingDonations.pending.data &&
-          areaPendingDonations.pending.data?.length ? (
-          areaPendingDonations.pending.data.map((request) => {
-            return <Item key={request.id} request={request} />;
+        ) : !areaPendingDonations.error &&
+          !!areaPendingDonations.data &&
+          areaPendingDonations.data?.length ? (
+          areaPendingDonations.data.map((item) => {
+            return (
+              <DonationCard
+                key={item.id}
+                donationId={item.id}
+                path="worker-donation-details"
+                data={
+                  !item.donorId
+                    ? [
+                        {
+                          icon: "account-outline",
+                          label: "Ref Name.",
+                          description: `${item.refName}`,
+                        },
+                        {
+                          icon: "phone-outline",
+                          label: "Ref Phone.",
+                          description: item.refPhone,
+                        },
+                        {
+                          icon: "map-marker-outline",
+                          label: "Address",
+                          description: item.address,
+                        },
+                        {
+                          icon: "cash-multiple",
+                          label: "Amount",
+                          description: `PKR ${Intl.NumberFormat("en-US").format(
+                            item.amount
+                          )}`,
+                        },
+                      ]
+                    : [
+                        {
+                          icon: "account-outline",
+                          label: "Name",
+                          description: `${item.firstName} ${item.lastName}`,
+                        },
+                        {
+                          icon: "phone-outline",
+                          label: "Phone",
+                          description: item.phone,
+                        },
+                        {
+                          icon: "account-details-outline",
+                          label: "CNIC",
+                          description: item.cnic,
+                        },
+                        {
+                          icon: "map-marker-outline",
+                          label: "Address",
+                          description: item.address,
+                        },
+                        {
+                          icon: "cash-multiple",
+                          label: "Amount",
+                          description: `PKR ${Intl.NumberFormat("en-US").format(
+                            item.amount
+                          )}`,
+                        },
+                      ]
+                }
+              />
+            );
           })
         ) : (
           <NotFound />

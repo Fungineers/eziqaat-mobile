@@ -1,7 +1,8 @@
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/core";
+import { Video } from "expo-av";
 import React, { useState } from "react";
-import { Image, ScrollView, View } from "react-native";
+import { Dimensions, ScrollView, View } from "react-native";
 import {
   Avatar,
   Button,
@@ -9,6 +10,7 @@ import {
   Text,
   useTheme,
 } from "react-native-paper";
+import video from "../../assets/eziqaat-logo.mp4";
 
 const GetStarted = () => {
   const navigation = useNavigation();
@@ -30,7 +32,7 @@ const GetStarted = () => {
   const pageCount = 5;
   const theme = useTheme();
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: theme.colors.onPrimary }}>
       <ProgressBar progress={page / (pageCount - 1)} />
       <ScrollView
         style={{ flex: 1 }}
@@ -43,33 +45,18 @@ const GetStarted = () => {
       >
         {page === 0 ? (
           <>
+            <Video
+              source={video}
+              resizeMode="contain"
+              shouldPlay
+              style={{ width: 250, height: 250 }}
+              videoStyle={{ width: 250, height: 250 }}
+            />
             <Text
-              style={{ width: "100%", textAlign: "center", marginTop: 100 }}
-              variant="displaySmall"
+              variant="displayMedium"
+              style={{ marginTop: 100, color: theme.colors.primary }}
             >
-              Welcome To
-            </Text>
-            <Text
-              variant="displayLarge"
-              style={{
-                color: theme.colors.primary,
-                marginTop: 30,
-                width: "100%",
-                textAlign: "center",
-              }}
-            >
-              Zakatify
-            </Text>
-            <Text
-              variant="titleLarge"
-              style={{
-                color: theme.colors.secondary,
-                textAlign: "center",
-                marginTop: 30,
-                width: "100%",
-              }}
-            >
-              Empowering Your Generosity with Seamless Doorstep Donations!
+              Welcome
             </Text>
           </>
         ) : page === 1 ? (
@@ -106,7 +93,7 @@ const GetStarted = () => {
             </Text>
             <Text style={{ width: "100%" }} variant="bodyLarge">
               Fed up with unauthenticated provisional receipts? No more delays
-              or uncertainties. Zakatify ensures centralized and instant
+              or uncertainties. Eziqaat ensures centralized and instant
               recording of your donations, allowing you to track them with full
               confidence.
             </Text>
@@ -124,7 +111,7 @@ const GetStarted = () => {
               Total Accountability Guaranteed: Your Donations, Our Watchful Eye!
             </Text>
             <Text style={{ width: "100%" }} variant="bodyLarge">
-              With instant recording and meticulous tracking, Zakatify ensures
+              With instant recording and meticulous tracking, Eziqaat ensures
               complete accountability. We keep a vigilant check on every
               collector, ensuring that your donations are used for their
               intended purpose and no frauds are committed with the
@@ -147,9 +134,9 @@ const GetStarted = () => {
               Your Zakat has the power to transform countless lives, support
               households in need, provide education and healthcare for the
               underprivileged, and contribute to various impactful initiatives.
-              Together, we can make a difference. Choose Zakatify as your
-              trusted Zakat organization and join us in creating a brighter
-              future for those in need.
+              Together, we can make a difference. Choose Eziqaat as your trusted
+              Zakat organization and join us in creating a brighter future for
+              those in need.
             </Text>
           </>
         )}

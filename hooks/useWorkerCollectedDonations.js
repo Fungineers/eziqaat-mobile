@@ -10,14 +10,14 @@ const useWorkerCollectedDonations = () => {
   const [searching, setSearching] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchData = () => {
+  const fetch = () => {
     setLoading(true);
     setError(false);
     api
       .getWorkerCollectedDonations()
       .then((res) => {
-        const { collectedDonations } = res.data;
-        setData(collectedDonations);
+        const { donations } = res.data;
+        setData(donations);
       })
       .catch((err) => {
         const message = err?.response?.data?.message || "Something went wrong";
@@ -28,14 +28,14 @@ const useWorkerCollectedDonations = () => {
       });
   };
 
-  const searchData = (value) => {
+  const search = (value) => {
     setSearching(true);
     setError(false);
     api
       .getWorkerCollectedDonations(value)
       .then((res) => {
-        const { collectedDonations } = res.data;
-        setData(collectedDonations);
+        const { donations } = res.data;
+        setData(donations);
       })
       .catch((err) => {
         const message = err?.response?.data?.message || "Something went wrong";
@@ -47,14 +47,12 @@ const useWorkerCollectedDonations = () => {
   };
 
   return {
-    collected: {
-      fetch: fetchData,
-      search: searchData,
-      searching,
-      loading,
-      error,
-      data,
-    },
+    fetch,
+    search,
+    searching,
+    loading,
+    error,
+    data,
   };
 };
 

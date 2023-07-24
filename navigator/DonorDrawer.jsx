@@ -13,6 +13,7 @@ import DonationRequest from "../screens/DonationRequest";
 import DonorRequests from "../screens/DonorRequests";
 import DonorDashboard from "../screens/DonorDashboard";
 import DonorHistory from "../screens/DonorHistory";
+import upperSnakeCaseToSentenceCase from "../utils/upperSnakeCaseToSentenceCase";
 
 const Drawer = createDrawerNavigator();
 
@@ -27,7 +28,9 @@ const DrawerContent = (props) => {
           <Title style={styles.title}>
             {auth.data.user?.firstName} {auth.data.user?.lastName}
           </Title>
-          <Caption style={styles.caption}>{auth.data.user?.role}</Caption>
+          <Caption style={styles.caption}>
+            {upperSnakeCaseToSentenceCase(auth.data.user?.role)}
+          </Caption>
         </View>
         <View style={styles.drawerContent}>
           <DrawerItemList {...props} />
@@ -52,8 +55,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   userInfoSection: {
-    paddingLeft: 20,
     marginBottom: 20,
+    alignItems: "center",
   },
   title: {
     marginTop: 20,
