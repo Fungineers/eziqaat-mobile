@@ -100,7 +100,7 @@ const DonorDrawer = () => {
         name="dashboard"
         options={{
           title: "Dashboard",
-          headerRight: NotificationMenu,
+          // headerRight: NotificationMenu,
           drawerIcon: (props) => (
             <MaterialCommunityIcons {...props} name="view-dashboard-outline" />
           ),

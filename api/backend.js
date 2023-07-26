@@ -41,8 +41,16 @@ export const changePhone = async ({ phone }) => {
   return await apiInstance.put("/user/phone", { phone });
 };
 
+export const requestOtp = async () => {
+  return await apiInstance.get("/user/email/otp");
+};
+
 export const changeEmail = async ({ email }) => {
   return await apiInstance.put("/user/email", { email });
+};
+
+export const verifyEmail = async ({ otp }) => {
+  return await apiInstance.post("/user/email/verify", { emailOtp: otp });
 };
 
 export const changePassword = async ({ currentPassword, newPassword }) => {

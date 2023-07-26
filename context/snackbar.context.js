@@ -36,7 +36,7 @@ export const SnackbarProvider = ({ children }) => {
         onDismiss={hide}
         icon="check"
         action={{ label: "Okay", onPress: hide }}
-        style={{ zIndex: 100 }}
+        style={{ zIndex: 400 }}
       >
         {message}
       </Snackbar>

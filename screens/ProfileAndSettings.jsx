@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import {
   Button,
   Dialog,
@@ -14,6 +14,10 @@ import StringInput from "../components/StringInput";
 import { useAuth } from "../context/auth.context";
 import useSettings from "../hooks/useSettings";
 import upperSnakeCaseToSentenceCase from "../utils/upperSnakeCaseToSentenceCase";
+import Note from "../components/Note";
+import usePopup from "../hooks/usePopup";
+import BottomPopup from "../components/BottomPopup";
+import VerifyOtp from "./VerifyOtp";
 
 const ItemRow = ({ children, icon, editHandler }) => {
   const theme = useTheme();
@@ -77,9 +81,7 @@ const Info = ({ text }) => {
   );
 };
 
-const EditPhone = () => {
-  const settings = useSettings();
-
+const EditPhone = ({ settings }) => {
   return (
     <>
       <Dialog.Title>Change Phone Number</Dialog.Title>
@@ -118,9 +120,7 @@ const EditPhone = () => {
   );
 };
 
-const EditEmail = () => {
-  const settings = useSettings();
-
+const EditEmail = ({ settings }) => {
   return (
     <>
       <Dialog.Title>Change E-mail</Dialog.Title>
@@ -159,9 +159,7 @@ const EditEmail = () => {
   );
 };
 
-const EditPassword = () => {
-  const settings = useSettings();
-
+const EditPassword = ({ settings }) => {
   return (
     <>
       <Dialog.Title>Change Password</Dialog.Title>
@@ -204,9 +202,7 @@ const EditPassword = () => {
   );
 };
 
-const CustomDialog = ({ activeSetting, hideDialog }) => {
-  const settings = useSettings();
-
+const CustomDialog = ({ settings, activeSetting, hideDialog }) => {
   return (
     <Portal>
       <Dialog
@@ -218,11 +214,11 @@ const CustomDialog = ({ activeSetting, hideDialog }) => {
         }}
       >
         {activeSetting === "phone" ? (
-          <EditPhone />
+          <EditPhone settings={settings} />
         ) : activeSetting === "email" ? (
-          <EditEmail />
+          <EditEmail settings={settings} />
         ) : activeSetting === "password" ? (
-          <EditPassword />
+          <EditPassword settings={settings} />
         ) : null}
       </Dialog>
     </Portal>
@@ -234,59 +230,78 @@ const ProfileAndSettings = () => {
 
   const auth = useAuth();
 
-  const { firstName, lastName, role, email, phone, cnic } = auth.data.user;
+  const { firstName, lastName, role, email, phone, cnic, emailVerified } =
+    auth.data.user;
+
+  const settings = useSettings();
+
+  const popup = usePopup();
 
   return (
-    <View style={{ padding: 20, gap: 10 }}>
-      <Text variant="titleMedium">General</Text>
-      <ItemRow icon="account-circle-outline">
-        <Item title="First Name" value={firstName} />
-        <Item title="Last Name" value={lastName} />
-      </ItemRow>
-      <ItemRow icon="card-account-details-outline">
-        <Item
-          title="CNIC Number"
-          value={`${cnic.slice(0, 5)}-${cnic.slice(5, 12)}-${cnic.slice(12)}`}
+    <ScrollView>
+      <View style={{ padding: 20, gap: 10, paddingBottom: 100 }}>
+        <Text variant="titleMedium">General</Text>
+        <ItemRow icon="account-circle-outline">
+          <Item title="First Name" value={firstName} />
+          <Item title="Last Name" value={lastName} />
+        </ItemRow>
+        <ItemRow icon="card-account-details-outline">
+          <Item
+            title="CNIC Number"
+            value={`${cnic.slice(0, 5)}-${cnic.slice(5, 12)}-${cnic.slice(12)}`}
+          />
+        </ItemRow>
+        <ItemRow icon="information-outline">
+          <Item title="Role" value={upperSnakeCaseToSentenceCase(role)} />
+        </ItemRow>
+        <Text variant="titleMedium">Account</Text>
+        <ItemRow
+          icon="phone-outline"
+          editHandler={() => setActiveSetting("phone")}
+        >
+          <Item
+            title="Phone"
+            value={`${phone.slice(0, 3)} ${phone.slice(3, 6)} ${phone.slice(
+              6,
+              9
+            )} ${phone.slice(9, 13)}`}
+          />
+        </ItemRow>
+        <ItemRow
+          icon="email-outline"
+          editHandler={() => setActiveSetting("email")}
+        >
+          <Item title="E-mail" value={email}></Item>
+        </ItemRow>
+        {!emailVerified && (
+          <>
+            <Note text="Your email address is not verified. Please verify it so that your email alert can be turned on." />
+            <Button
+              icon="check-circle-outline"
+              mode="contained"
+              onPress={popup.show}
+            >
+              Verify Your Email
+            </Button>
+            <BottomPopup title="Verify Email" icon="email-check" {...popup}>
+              <VerifyOtp settings={settings} />
+            </BottomPopup>
+          </>
+        )}
+        <Text variant="titleMedium">Security</Text>
+        <ItemRow
+          icon="form-textbox-password"
+          editHandler={() => setActiveSetting("password")}
+        >
+          <Item title="Password" value={"\u2022".repeat(8)} />
+        </ItemRow>
+        <CustomDialog
+          activeSetting={activeSetting}
+          settings={settings}
+          hideDialog={() => setActiveSetting("")}
         />
-      </ItemRow>
-      <ItemRow icon="information-outline">
-        <Item title="Role" value={upperSnakeCaseToSentenceCase(role)} />
-      </ItemRow>
-      <Text variant="titleMedium">Account</Text>
-      <ItemRow
-        icon="phone-outline"
-        editHandler={() => setActiveSetting("phone")}
-      >
-        <Item
-          title="Phone"
-          value={`${phone.slice(0, 3)} ${phone.slice(3, 6)} ${phone.slice(
-            6,
-            9
-          )} ${phone.slice(9, 13)}`}
-        />
-      </ItemRow>
-      <ItemRow
-        icon="email-outline"
-        editHandler={() => setActiveSetting("email")}
-      >
-        <Item title="E-mail" value={email}>
-          {/* <Button mode="contained" icon="check-decagram">
-            Verify
-          </Button> */}
-        </Item>
-      </ItemRow>
-      <Text variant="titleMedium">Security</Text>
-      <ItemRow
-        icon="form-textbox-password"
-        editHandler={() => setActiveSetting("password")}
-      >
-        <Item title="Password" value={"\u2022".repeat(8)} />
-      </ItemRow>
-      <CustomDialog
-        activeSetting={activeSetting}
-        hideDialog={() => setActiveSetting("")}
-      />
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 

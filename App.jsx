@@ -12,10 +12,10 @@ import theme from "./theme";
 const App = () => {
   return (
     <SafeAreaProvider>
-      <SnackbarProvider>
-        <AuthProvider>
-          <AreasProvider>
-            <PaperProvider theme={theme}>
+      <PaperProvider theme={theme}>
+        <SnackbarProvider>
+          <AuthProvider>
+            <AreasProvider>
               <StatusBar
                 backgroundColor={theme.colors.background}
                 barStyle="dark-content"
@@ -30,10 +30,10 @@ const App = () => {
               >
                 <Navigator />
               </NavigationContainer>
-            </PaperProvider>
-          </AreasProvider>
-        </AuthProvider>
-      </SnackbarProvider>
+            </AreasProvider>
+          </AuthProvider>
+        </SnackbarProvider>
+      </PaperProvider>
     </SafeAreaProvider>
   );
 };

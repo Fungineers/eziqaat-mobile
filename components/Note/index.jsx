@@ -10,7 +10,7 @@ const Note = ({ text }) => {
         padding: 15,
         flexDirection: "row",
         gap: 10,
-        borderRadius: theme.roundness,
+        borderRadius: 8,
         borderWidth: 1,
         borderColor: theme.colors.primary,
       }}

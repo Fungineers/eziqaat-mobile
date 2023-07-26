@@ -13,7 +13,7 @@ const useSettings = () => {
 
   const emailForm = useFormik({
     initialValues: {
-      email: auth.data?.user?.email || "",
+      email: auth.data?.user?.email,
     },
     validateOnChange: false,
     validationSchema: Yup.object().shape({
@@ -28,7 +28,7 @@ const useSettings = () => {
         .then((res) => {
           const { message } = res.data;
           snackbar.show({ message });
-          auth.update("email", values.email);
+          auth.update({ email: values.email, emailVerified: 0 });
           resetForm();
         })
         .catch((error) => {
@@ -44,7 +44,7 @@ const useSettings = () => {
 
   const phoneForm = useFormik({
     initialValues: {
-      phone: auth.data?.user?.phone || "",
+      phone: auth.data?.user?.phone,
     },
     validateOnChange: false,
     validationSchema: Yup.object().shape({
@@ -104,6 +104,34 @@ const useSettings = () => {
     },
   });
 
+  const verifyOtpForm = useFormik({
+    initialValues: {
+      otp: "",
+    },
+    validationSchema: Yup.object().shape({
+      otp: Yup.string()
+        .required("OTP is required")
+        .matches(regexps.otp, { message: "OTP must be 4 digits" }),
+    }),
+    onSubmit: (values) => {
+      setLoading(true);
+      api
+        .verifyEmail(values)
+        .then((res) => {
+          const { message } = res.data;
+          snackbar.show({ message });
+          auth.update({ emailVerified: 1 });
+        })
+        .catch((err) => {
+          const message = err?.response?.data?.message;
+          snackbar.show({ message });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    },
+  });
+
   return {
     loading,
     currentEmail: auth.data.user?.email,
@@ -111,6 +139,7 @@ const useSettings = () => {
     emailForm,
     phoneForm,
     passwordForm,
+    verifyOtpForm,
   };
 };
 
