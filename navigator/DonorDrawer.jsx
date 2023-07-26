@@ -14,6 +14,7 @@ import DonorRequests from "../screens/DonorRequests";
 import DonorDashboard from "../screens/DonorDashboard";
 import DonorHistory from "../screens/DonorHistory";
 import upperSnakeCaseToSentenceCase from "../utils/upperSnakeCaseToSentenceCase";
+import NotificationMenu from "../components/NotificationMenu";
 
 const Drawer = createDrawerNavigator();
 
@@ -99,7 +100,7 @@ const DonorDrawer = () => {
         name="dashboard"
         options={{
           title: "Dashboard",
-          // headerRight: NotificationMenu,
+          headerRight: NotificationMenu,
           drawerIcon: (props) => (
             <MaterialCommunityIcons {...props} name="view-dashboard-outline" />
           ),

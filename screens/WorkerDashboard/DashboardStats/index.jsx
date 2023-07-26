@@ -104,7 +104,7 @@ const DashboardStats = () => {
                 label="Amount collected"
                 description={`${Intl.NumberFormat("en-US", {
                   notation: "compact",
-                  maximumFractionDigits: 1,
+                  maximumFractionDigits: 3,
                 }).format(worker.data.totalCashFlow)}  PKR`}
               />
               <StatItem

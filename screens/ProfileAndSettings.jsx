@@ -244,7 +244,10 @@ const ProfileAndSettings = () => {
         <Item title="Last Name" value={lastName} />
       </ItemRow>
       <ItemRow icon="card-account-details-outline">
-        <Item title="CNIC Number" value={cnic} />
+        <Item
+          title="CNIC Number"
+          value={`${cnic.slice(0, 5)}-${cnic.slice(5, 12)}-${cnic.slice(12)}`}
+        />
       </ItemRow>
       <ItemRow icon="information-outline">
         <Item title="Role" value={upperSnakeCaseToSentenceCase(role)} />
@@ -254,7 +257,13 @@ const ProfileAndSettings = () => {
         icon="phone-outline"
         editHandler={() => setActiveSetting("phone")}
       >
-        <Item title="Phone" value={phone} />
+        <Item
+          title="Phone"
+          value={`${phone.slice(0, 3)} ${phone.slice(3, 6)} ${phone.slice(
+            6,
+            9
+          )} ${phone.slice(9, 13)}`}
+        />
       </ItemRow>
       <ItemRow
         icon="email-outline"

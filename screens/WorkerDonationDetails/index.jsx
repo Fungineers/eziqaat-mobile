@@ -159,26 +159,43 @@ const WorkerDonationDetails = () => {
           />
           <Divider />
           <Text variant="titleMedium">Donor Info</Text>
-          <InfoItem
-            icon="account-outline"
-            label="Name"
-            description={donationInfo.data.donorName}
-          />
-          <InfoItem
-            icon="phone-outline"
-            label="Phone"
-            description={donationInfo.data.donorPhone}
-          />
-          <InfoItem
-            icon="card-account-details-outline"
-            label="CNIC"
-            description={donationInfo.data.donorCnic}
-          />
-          <InfoItem
-            icon="email-outline"
-            label="E-mail"
-            description={donationInfo.data.donorEmail || "(Unset)"}
-          />
+          {!donationInfo.data.donorId ? (
+            <>
+              <InfoItem
+                icon="account-outline"
+                label="Ref Name"
+                description={donationInfo.data.refName}
+              />
+              <InfoItem
+                icon="phone-outline"
+                label="Ref Phone"
+                description={donationInfo.data.refPhone}
+              />
+            </>
+          ) : (
+            <>
+              <InfoItem
+                icon="account-outline"
+                label="Name"
+                description={donationInfo.data.donorName}
+              />
+              <InfoItem
+                icon="phone-outline"
+                label="Phone"
+                description={donationInfo.data.donorPhone}
+              />
+              <InfoItem
+                icon="card-account-details-outline"
+                label="CNIC"
+                description={donationInfo.data.donorCnic}
+              />
+              <InfoItem
+                icon="email-outline"
+                label="E-mail"
+                description={donationInfo.data.donorEmail || "(Unset)"}
+              />
+            </>
+          )}
           <View style={{ flexDirection: "row", gap: 15, width: "100%" }}>
             <Button
               style={{ flex: 1 }}

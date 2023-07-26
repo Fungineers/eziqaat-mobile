@@ -106,7 +106,7 @@ const DashboardStats = () => {
                 label="Amount Raised"
                 description={`${Intl.NumberFormat("en-US", {
                   notation: "compact",
-                  maximumFractionDigits: 1,
+                  maximumFractionDigits: 3,
                 }).format(areaStats.data.totalCashFlow)}  PKR`}
               />
               <StatItem
@@ -170,7 +170,7 @@ const DashboardStats = () => {
                 label="Amount Raised"
                 description={`${Intl.NumberFormat("en-US", {
                   notation: "compact",
-                  maximumFractionDigits: 1,
+                  maximumFractionDigits: 3,
                 }).format(areaDailyStats.data.totalCashFlow)}  PKR`}
               />
               <StatItem
