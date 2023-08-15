@@ -18,7 +18,7 @@ const DonorHistory = () => {
       <View style={{ flexDirection: "column", gap: 16 }}>
         {donorHistory.loading ? (
           <Loading />
-        ) : !donorHistory.error || donorHistory.data?.length ? (
+        ) : !donorHistory.error && donorHistory.data?.length ? (
           donorHistory.data.map((item) => (
             <DonationCard
               donationId={item.id}

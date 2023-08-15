@@ -20,7 +20,7 @@ const DonorRequests = () => {
         <Note text="Every request that you submit, or any record added on your behalf that hasn't been collected yet, can be tracked here. You can use the unique tracking ID, and worker details for reference in case of any queries" />
         {donorRequests.loading ? (
           <Loading />
-        ) : !donorRequests.error || donorRequests.data?.length ? (
+        ) : !donorRequests.error && donorRequests.data?.length ? (
           donorRequests.data.map((item) => (
             <DonationCard
               donationId={item.id}
